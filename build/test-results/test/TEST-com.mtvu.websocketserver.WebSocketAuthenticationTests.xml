@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.mtvu.websocketserver.WebSocketAuthenticationTests" tests="1" skipped="0" failures="1" errors="0" timestamp="2022-12-18T06:54:48" hostname="Manhs-Mac-mini.local" time="0.925">
+  <properties/>
+  <testcase name="performWhenHasValidBearerTokenThenAllowsAccess()" classname="com.mtvu.websocketserver.WebSocketAuthenticationTests" time="0.925">
+    <failure message="java.util.concurrent.ExecutionException: org.springframework.messaging.simp.stomp.ConnectionLostException: Connection closed" type="java.util.concurrent.ExecutionException">java.util.concurrent.ExecutionException: org.springframework.messaging.simp.stomp.ConnectionLostException: Connection closed
+	at java.base/java.util.concurrent.FutureTask.report(FutureTask.java:122)
+	at java.base/java.util.concurrent.FutureTask.get(FutureTask.java:205)
+	at org.springframework.util.concurrent.SettableListenableFuture.get(SettableListenableFuture.java:136)
+	at com.mtvu.websocketserver.WebSocketAuthenticationTests.performWhenHasValidBearerTokenThenAllowsAccess(WebSocketAuthenticationTests.java:102)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:725)
+	at org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:149)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:140)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:84)
+	at org.junit.jupiter.engine.execution.ExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(ExecutableInvoker.java:115)
+	at org.junit.jupiter.engine.execution.ExecutableInvoker.lambda$invoke$0(ExecutableInvoker.java:105)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37)
+	at org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:104)
+	at org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:98)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$7(TestMethodTestDescriptor.java:214)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:210)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:135)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:66)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:151)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:107)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:88)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:54)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:67)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:52)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:114)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:86)
+	at org.junit.platform.launcher.core.DefaultLauncherSession$DelegatingLauncher.execute(DefaultLauncherSession.java:86)
+	at org.junit.platform.launcher.core.SessionPerRequestLauncher.execute(SessionPerRequestLauncher.java:53)
+	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor$CollectAllTestClassesExecutor.processAllTestClasses(JUnitPlatformTestClassProcessor.java:99)
+	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor$CollectAllTestClassesExecutor.access$000(JUnitPlatformTestClassProcessor.java:79)
+	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor.stop(JUnitPlatformTestClassProcessor.java:75)
+	at org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor.stop(SuiteTestClassProcessor.java:61)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
+	at org.gradle.internal.dispatch.ContextClassLoaderDispatch.dispatch(ContextClassLoaderDispatch.java:33)
+	at org.gradle.internal.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:94)
+	at jdk.proxy1/jdk.proxy1.$Proxy2.stop(Unknown Source)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker$3.run(TestWorker.java:193)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.executeAndMaintainThreadName(TestWorker.java:129)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:100)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:60)
+	at org.gradle.process.internal.worker.child.ActionExecutionWorker.execute(ActionExecutionWorker.java:56)
+	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:133)
+	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:71)
+	at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69)
+	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)
+Caused by: org.springframework.messaging.simp.stomp.ConnectionLostException: Connection closed
+	at app//org.springframework.messaging.simp.stomp.DefaultStompSession.afterConnectionClosed(DefaultStompSession.java:526)
+	at app//org.springframework.web.socket.messaging.WebSocketStompClient$WebSocketTcpConnectionHandlerAdapter.afterConnectionClosed(WebSocketStompClient.java:352)
+	at app//org.springframework.web.socket.handler.WebSocketHandlerDecorator.afterConnectionClosed(WebSocketHandlerDecorator.java:85)
+	at app//org.springframework.web.socket.handler.LoggingWebSocketHandlerDecorator.afterConnectionClosed(LoggingWebSocketHandlerDecorator.java:72)
+	at app//org.springframework.web.socket.sockjs.client.AbstractClientSockJsSession.afterTransportClosed(AbstractClientSockJsSession.java:350)
+	at app//org.springframework.web.socket.sockjs.client.WebSocketTransport$ClientSockJsWebSocketHandler.afterConnectionClosed(WebSocketTransport.java:173)
+	at app//org.springframework.web.socket.adapter.standard.StandardWebSocketHandlerAdapter.onClose(StandardWebSocketHandlerAdapter.java:145)
+	at app//org.apache.tomcat.websocket.WsSession.fireEndpointOnClose(WsSession.java:767)
+	at app//org.apache.tomcat.websocket.WsSession.doClose(WsSession.java:715)
+	at app//org.apache.tomcat.websocket.WsSession.doClose(WsSession.java:665)
+	at app//org.apache.tomcat.websocket.WsSession.close(WsSession.java:652)
+	at app//org.springframework.web.socket.adapter.standard.StandardWebSocketSession.closeInternal(StandardWebSocketSession.java:235)
+	at app//org.springframework.web.socket.adapter.AbstractWebSocketSession.close(AbstractWebSocketSession.java:142)
+	at app//org.springframework.web.socket.sockjs.client.WebSocketClientSockJsSession.disconnect(WebSocketClientSockJsSession.java:127)
+	at app//org.springframework.web.socket.sockjs.client.AbstractClientSockJsSession.closeInternal(AbstractClientSockJsSession.java:213)
+	at app//org.springframework.web.socket.sockjs.client.AbstractClientSockJsSession.silentClose(AbstractClientSockJsSession.java:190)
+	at app//org.springframework.web.socket.sockjs.client.AbstractClientSockJsSession.handleCloseFrame(AbstractClientSockJsSession.java:322)
+	at app//org.springframework.web.socket.sockjs.client.AbstractClientSockJsSession.handleFrame(AbstractClientSockJsSession.java:233)
+	at app//org.springframework.web.socket.sockjs.client.WebSocketTransport$ClientSockJsWebSocketHandler.handleTextMessage(WebSocketTransport.java:163)
+	at app//org.springframework.web.socket.handler.AbstractWebSocketHandler.handleMessage(AbstractWebSocketHandler.java:43)
+	at app//org.springframework.web.socket.adapter.standard.StandardWebSocketHandlerAdapter.handleTextMessage(StandardWebSocketHandlerAdapter.java:114)
+	at app//org.springframework.web.socket.adapter.standard.StandardWebSocketHandlerAdapter.access$000(StandardWebSocketHandlerAdapter.java:43)
+	at app//org.springframework.web.socket.adapter.standard.StandardWebSocketHandlerAdapter$3.onMessage(StandardWebSocketHandlerAdapter.java:85)
+	at app//org.springframework.web.socket.adapter.standard.StandardWebSocketHandlerAdapter$3.onMessage(StandardWebSocketHandlerAdapter.java:82)
+	at app//org.apache.tomcat.websocket.WsFrameBase.sendMessageText(WsFrameBase.java:415)
+	at app//org.apache.tomcat.websocket.WsFrameBase.processDataText(WsFrameBase.java:515)
+	at app//org.apache.tomcat.websocket.WsFrameBase.processData(WsFrameBase.java:301)
+	at app//org.apache.tomcat.websocket.WsFrameBase.processInputBuffer(WsFrameBase.java:133)
+	at app//org.apache.tomcat.websocket.WsFrameClient.processSocketRead(WsFrameClient.java:95)
+	at app//org.apache.tomcat.websocket.WsFrameClient.resumeProcessing(WsFrameClient.java:212)
+	at app//org.apache.tomcat.websocket.WsFrameClient.access$500(WsFrameClient.java:31)
+	at app//org.apache.tomcat.websocket.WsFrameClient$WsFrameClientCompletionHandler.doResumeProcessing(WsFrameClient.java:189)
+	at app//org.apache.tomcat.websocket.WsFrameClient$WsFrameClientCompletionHandler.completed(WsFrameClient.java:163)
+	at app//org.apache.tomcat.websocket.WsFrameClient$WsFrameClientCompletionHandler.completed(WsFrameClient.java:148)
+	at java.base@17.0.5/sun.nio.ch.Invoker.invokeUnchecked(Invoker.java:129)
+	at java.base@17.0.5/sun.nio.ch.Invoker.invokeDirect(Invoker.java:160)
+	at java.base@17.0.5/sun.nio.ch.UnixAsynchronousSocketChannelImpl.implRead(UnixAsynchronousSocketChannelImpl.java:573)
+	at java.base@17.0.5/sun.nio.ch.AsynchronousSocketChannelImpl.read(AsynchronousSocketChannelImpl.java:276)
+	at java.base@17.0.5/sun.nio.ch.AsynchronousSocketChannelImpl.read(AsynchronousSocketChannelImpl.java:297)
+	at java.base@17.0.5/java.nio.channels.AsynchronousSocketChannel.read(AsynchronousSocketChannel.java:425)
+	at app//org.apache.tomcat.websocket.AsyncChannelWrapperNonSecure.read(AsyncChannelWrapperNonSecure.java:53)
+	at app//org.apache.tomcat.websocket.WsFrameClient.processSocketRead(WsFrameClient.java:101)
+	at app//org.apache.tomcat.websocket.WsFrameClient.resumeProcessing(WsFrameClient.java:212)
+	at app//org.apache.tomcat.websocket.WsFrameClient.access$500(WsFrameClient.java:31)
+	at app//org.apache.tomcat.websocket.WsFrameClient$WsFrameClientCompletionHandler.doResumeProcessing(WsFrameClient.java:189)
+	at app//org.apache.tomcat.websocket.WsFrameClient$WsFrameClientCompletionHandler.completed(WsFrameClient.java:163)
+	at app//org.apache.tomcat.websocket.WsFrameClient$WsFrameClientCompletionHandler.completed(WsFrameClient.java:148)
+	at java.base@17.0.5/sun.nio.ch.Invoker.invokeUnchecked(Invoker.java:129)
+	at java.base@17.0.5/sun.nio.ch.UnixAsynchronousSocketChannelImpl.finishRead(UnixAsynchronousSocketChannelImpl.java:447)
+	at java.base@17.0.5/sun.nio.ch.UnixAsynchronousSocketChannelImpl.finish(UnixAsynchronousSocketChannelImpl.java:195)
+	at java.base@17.0.5/sun.nio.ch.UnixAsynchronousSocketChannelImpl.onEvent(UnixAsynchronousSocketChannelImpl.java:217)
+	at java.base@17.0.5/sun.nio.ch.KQueuePort$EventHandlerTask.run(KQueuePort.java:312)
+	at java.base@17.0.5/sun.nio.ch.AsynchronousChannelGroupImpl$1.run(AsynchronousChannelGroupImpl.java:113)
+	at app//org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at app//org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at java.base@17.0.5/java.lang.Thread.run(Thread.java:833)
+</failure>
+  </testcase>
+  <system-out><![CDATA[07:54:45.566 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating CacheAwareContextLoaderDelegate from class [org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate]
+07:54:45.573 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating BootstrapContext using constructor [public org.springframework.test.context.support.DefaultBootstrapContext(java.lang.Class,org.springframework.test.context.CacheAwareContextLoaderDelegate)]
+07:54:45.593 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating TestContextBootstrapper for test class [com.mtvu.websocketserver.WebSocketAuthenticationTests] from class [org.springframework.boot.test.context.SpringBootTestContextBootstrapper]
+07:54:45.600 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.mtvu.websocketserver.WebSocketAuthenticationTests], using SpringBootContextLoader
+07:54:45.602 [Test worker] DEBUG org.springframework.test.context.support.AbstractContextLoader - Did not detect default resource location for test class [com.mtvu.websocketserver.WebSocketAuthenticationTests]: class path resource [com/mtvu/websocketserver/WebSocketAuthenticationTests-context.xml] does not exist
+07:54:45.602 [Test worker] DEBUG org.springframework.test.context.support.AbstractContextLoader - Did not detect default resource location for test class [com.mtvu.websocketserver.WebSocketAuthenticationTests]: class path resource [com/mtvu/websocketserver/WebSocketAuthenticationTestsContext.groovy] does not exist
+07:54:45.602 [Test worker] INFO org.springframework.test.context.support.AbstractContextLoader - Could not detect default resource locations for test class [com.mtvu.websocketserver.WebSocketAuthenticationTests]: no resource found for suffixes {-context.xml, Context.groovy}.
+07:54:45.603 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.mtvu.websocketserver.WebSocketAuthenticationTests]: WebSocketAuthenticationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+07:54:45.667 [Test worker] DEBUG org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider - Identified candidate component class: file [/Users/mvu/Documents/Projects/microservices-chat-app/websocket-server/build/classes/java/main/com/mtvu/websocketserver/WebsocketServerApplication.class]
+07:54:45.667 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.mtvu.websocketserver.WebsocketServerApplication for test class com.mtvu.websocketserver.WebSocketAuthenticationTests
+07:54:45.714 [Test worker] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper - @TestExecutionListeners is not present for class [com.mtvu.websocketserver.WebSocketAuthenticationTests]: using defaults.
+07:54:45.714 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+07:54:45.723 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@6a1d204a, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@62dae245, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@4b6579e8, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@6fff253c, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@6c6357f9, org.springframework.test.context.support.DirtiesContextTestExecutionListener@591e58fa, org.springframework.test.context.transaction.TransactionalTestExecutionListener@3954d008, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@2f94c4db, org.springframework.test.context.event.EventPublishingTestExecutionListener@593e824f, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@72ccd81a, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@6d8792db, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@64bc21ac, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@493dfb8e, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@5d25e6bb, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@ce5a68e]
+07:54:45.725 [Test worker] DEBUG org.springframework.test.context.support.AbstractDirtiesContextTestExecutionListener - Before test class: context [DefaultTestContext@4985cbcb testClass = WebSocketAuthenticationTests, testInstance = [null], testMethod = [null], testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@72f46e16 testClass = WebSocketAuthenticationTests, locations = '{}', classes = '{class com.mtvu.websocketserver.WebsocketServerApplication}', contextInitializerClasses = '[]', activeProfiles = '{test}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true, server.port=0}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.actuate.metrics.MetricsExportContextCustomizerFactory$DisableMetricExportContextCustomizer@4b6690c0, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@7d64e326, org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@6b8d96d9, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@49d3c823, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@30b19518, org.springframework.boot.test.context.SpringBootTestArgs@1, org.springframework.boot.test.context.SpringBootTestWebEnvironment@43dac38f], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -> false]], class annotated with @DirtiesContext [false] with mode [null].
+07:54:45.731 [Test worker] DEBUG org.springframework.test.context.support.DependencyInjectionTestExecutionListener - Performing dependency injection for test context [[DefaultTestContext@4985cbcb testClass = WebSocketAuthenticationTests, testInstance = com.mtvu.websocketserver.WebSocketAuthenticationTests@791cbf87, testMethod = [null], testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@72f46e16 testClass = WebSocketAuthenticationTests, locations = '{}', classes = '{class com.mtvu.websocketserver.WebsocketServerApplication}', contextInitializerClasses = '[]', activeProfiles = '{test}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true, server.port=0}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.actuate.metrics.MetricsExportContextCustomizerFactory$DisableMetricExportContextCustomizer@4b6690c0, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@7d64e326, org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@6b8d96d9, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@49d3c823, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@30b19518, org.springframework.boot.test.context.SpringBootTestArgs@1, org.springframework.boot.test.context.SpringBootTestWebEnvironment@43dac38f], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -> false, 'org.springframework.test.context.event.ApplicationEventsTestExecutionListener.recordApplicationEvents' -> false]]].
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v2.7.4)
+
+2022-12-18 07:54:45.935  INFO 44294 --- [    Test worker] c.m.w.WebSocketAuthenticationTests       : Starting WebSocketAuthenticationTests using Java 17.0.5 on Manhs-Mac-mini.local with PID 44294 (started by mvu in /Users/mvu/Documents/Projects/microservices-chat-app/websocket-server)
+2022-12-18 07:54:45.936  INFO 44294 --- [    Test worker] c.m.w.WebSocketAuthenticationTests       : The following 1 profile is active: "test"
+2022-12-18 07:54:46.784  INFO 44294 --- [    Test worker] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 0 (http)
+2022-12-18 07:54:46.790  INFO 44294 --- [    Test worker] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-12-18 07:54:46.790  INFO 44294 --- [    Test worker] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.65]
+2022-12-18 07:54:46.869  INFO 44294 --- [    Test worker] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2022-12-18 07:54:46.869  INFO 44294 --- [    Test worker] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 919 ms
+2022-12-18 07:54:47.340  INFO 44294 --- [    Test worker] org.apache.activemq.artemis.core.server  : AMQ221000: live Message Broker is starting with configuration Broker Configuration (clustered=false,journalDirectory=/var/folders/25/_wkdw78x2msd636v6g48z0mw0000gn/T/artemis-data/journal,bindingsDirectory=data/bindings,largeMessagesDirectory=data/largemessages,pagingDirectory=data/paging)
+2022-12-18 07:54:47.348  INFO 44294 --- [    Test worker] org.apache.activemq.artemis.core.server  : AMQ221045: libaio is not available, switching the configuration into NIO
+2022-12-18 07:54:47.368  INFO 44294 --- [    Test worker] org.apache.activemq.artemis.core.server  : AMQ221057: Global Max Size is being adjusted to 1/2 of the JVM max size (-Xmx). being defined as 268,435,456
+2022-12-18 07:54:47.381  INFO 44294 --- [    Test worker] org.apache.activemq.artemis.core.server  : AMQ221043: Protocol module found: [artemis-server]. Adding protocol support for: CORE
+2022-12-18 07:54:47.382  INFO 44294 --- [    Test worker] org.apache.activemq.artemis.core.server  : AMQ221043: Protocol module found: [artemis-stomp-protocol]. Adding protocol support for: STOMP
+2022-12-18 07:54:47.403  INFO 44294 --- [    Test worker] org.apache.activemq.audit.base           : AMQ601138: User anonymous@unknown is getting notification info on target resource: null []
+2022-12-18 07:54:47.403  INFO 44294 --- [    Test worker] org.apache.activemq.audit.base           : AMQ601019: User anonymous@unknown is getting mbean info on target resource: org.apache.activemq.artemis.core.management.impl.ActiveMQServerControlImpl@2ecdf528 []
+2022-12-18 07:54:47.404  INFO 44294 --- [    Test worker] org.apache.activemq.audit.base           : AMQ601138: User anonymous@unknown is getting notification info on target resource: ActiveMQServerImpl::name=localhost []
+2022-12-18 07:54:47.411  INFO 44294 --- [    Test worker] org.apache.activemq.artemis.core.server  : AMQ224092: Despite disabled persistence, page files will be persisted.
+2022-12-18 07:54:47.414  INFO 44294 --- [    Test worker] org.apache.activemq.artemis.core.server  : AMQ221080: Deploying address DLQ supporting [ANYCAST]
+2022-12-18 07:54:47.418  INFO 44294 --- [    Test worker] org.apache.activemq.audit.base           : AMQ601019: User anonymous@unknown is getting mbean info on target resource: org.apache.activemq.artemis.core.management.impl.AddressControlImpl@4d825dbe []
+2022-12-18 07:54:47.419  INFO 44294 --- [    Test worker] org.apache.activemq.artemis.core.server  : AMQ221003: Deploying ANYCAST queue DLQ on address DLQ
+2022-12-18 07:54:47.455  INFO 44294 --- [    Test worker] org.apache.activemq.audit.base           : AMQ601019: User anonymous@unknown is getting mbean info on target resource: org.apache.activemq.artemis.core.management.impl.QueueControlImpl@48d5ca17 []
+2022-12-18 07:54:47.457  INFO 44294 --- [    Test worker] org.apache.activemq.artemis.core.server  : AMQ221080: Deploying address ExpiryQueue supporting [ANYCAST]
+2022-12-18 07:54:47.457  INFO 44294 --- [    Test worker] org.apache.activemq.audit.base           : AMQ601019: User anonymous@unknown is getting mbean info on target resource: org.apache.activemq.artemis.core.management.impl.AddressControlImpl@9880a15 []
+2022-12-18 07:54:47.458  INFO 44294 --- [    Test worker] org.apache.activemq.artemis.core.server  : AMQ221003: Deploying ANYCAST queue ExpiryQueue on address ExpiryQueue
+2022-12-18 07:54:47.458  INFO 44294 --- [    Test worker] org.apache.activemq.audit.base           : AMQ601019: User anonymous@unknown is getting mbean info on target resource: org.apache.activemq.artemis.core.management.impl.QueueControlImpl@6febec41 []
+2022-12-18 07:54:47.460  INFO 44294 --- [    Test worker] org.apache.activemq.audit.base           : AMQ601019: User anonymous@unknown is getting mbean info on target resource: org.apache.activemq.artemis.core.management.impl.AddressControlImpl@4ec8d9b2 []
+2022-12-18 07:54:47.476  INFO 44294 --- [    Test worker] org.apache.activemq.audit.base           : AMQ601019: User anonymous@unknown is getting mbean info on target resource: org.apache.activemq.artemis.core.management.impl.AcceptorControlImpl@1fa98a22 []
+2022-12-18 07:54:47.482  INFO 44294 --- [    Test worker] org.apache.activemq.audit.base           : AMQ601019: User anonymous@unknown is getting mbean info on target resource: org.apache.activemq.artemis.core.management.impl.AcceptorControlImpl@6ac9b66b []
+2022-12-18 07:54:47.629  INFO 44294 --- [    Test worker] org.apache.activemq.artemis.core.server  : AMQ221020: Started KQUEUE Acceptor at 127.0.0.1:9876 for protocols [CORE,STOMP]
+2022-12-18 07:54:47.629  INFO 44294 --- [    Test worker] org.apache.activemq.artemis.core.server  : AMQ221007: Server is now live
+2022-12-18 07:54:47.629  INFO 44294 --- [    Test worker] org.apache.activemq.artemis.core.server  : AMQ221001: Apache ActiveMQ Artemis Message Broker version 2.19.1 [localhost, nodeID=dc3ee5bf-7ea0-11ed-8dc8-eedb8bb46555] 
+2022-12-18 07:54:47.775  INFO 44294 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@771cbd13, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@229749f0, org.springframework.security.web.context.SecurityContextPersistenceFilter@6d842877, org.springframework.security.web.header.HeaderWriterFilter@c677d7e, org.springframework.security.web.authentication.logout.LogoutFilter@505a8582, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@2759749, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@4efed0e0, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3d57fb9e, org.springframework.security.web.session.SessionManagementFilter@32069394, org.springframework.security.web.access.ExceptionTranslationFilter@1e029a04, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@563c3aca]
+2022-12-18 07:54:48.325  INFO 44294 --- [    Test worker] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint(s) beneath base path '/actuator'
+2022-12-18 07:54:48.382  INFO 44294 --- [    Test worker] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 60348 (http) with context path ''
+2022-12-18 07:54:48.383  INFO 44294 --- [    Test worker] o.s.m.s.s.StompBrokerRelayMessageHandler : Starting...
+2022-12-18 07:54:48.502  INFO 44294 --- [    Test worker] o.s.m.s.s.StompBrokerRelayMessageHandler : Starting "system" session, StompBrokerRelay[ReactorNettyTcpClient[reactor.netty.tcp.TcpClientConnect@4abfa2ff]]
+2022-12-18 07:54:48.558  INFO 44294 --- [    Test worker] o.s.m.s.s.StompBrokerRelayMessageHandler : Started.
+2022-12-18 07:54:48.568  INFO 44294 --- [    Test worker] c.m.w.WebSocketAuthenticationTests       : Started WebSocketAuthenticationTests in 2.823 seconds (JVM running for 3.559)
+2022-12-18 07:54:48.620  INFO 44294 --- [-netty-threads)] org.apache.activemq.audit.base           : AMQ601267: User anonymous@127.0.0.1:60350 is creating a core session on target resource ActiveMQServerImpl::name=localhost [with parameters: [dd034734-7ea0-11ed-8dc8-eedb8bb46555, admin, ****, 102400, org.apache.activemq.artemis.core.protocol.stomp.StompConnection@79504703, true, false, false, false, null, org.apache.activemq.artemis.core.protocol.stomp.StompSession@3bd07232, true, org.apache.activemq.artemis.core.persistence.impl.nullpm.NullStorageManager$2@6603073c, {}]]
+2022-12-18 07:54:48.639  INFO 44294 --- [ent-scheduler-3] o.s.m.s.s.StompBrokerRelayMessageHandler : "System" session connected.
+2022-12-18 07:54:48.640  INFO 44294 --- [ent-scheduler-3] o.s.m.s.s.StompBrokerRelayMessageHandler : BrokerAvailabilityEvent[available=true, StompBrokerRelay[ReactorNettyTcpClient[reactor.netty.tcp.TcpClientConnect@4abfa2ff]]]
+2022-12-18 07:54:48.647  INFO 44294 --- [-netty-threads)] org.apache.activemq.audit.base           : AMQ601262: User anonymous@127.0.0.1:60350 is creating address on target resource: dd034734-7ea0-11ed-8dc8-eedb8bb46555 [with parameters: [Address [name=/topic/unresolved-user, id=0, routingTypes={MULTICAST}, autoCreated=false, paused=false], true]]
+2022-12-18 07:54:48.650  INFO 44294 --- [-netty-threads)] org.apache.activemq.audit.base           : AMQ601019: User anonymous@127.0.0.1:60350 is getting mbean info on target resource: org.apache.activemq.artemis.core.management.impl.AddressControlImpl@7194aeed []
+2022-12-18 07:54:48.651  INFO 44294 --- [-netty-threads)] org.apache.activemq.audit.resource       : AMQ601065: User anonymous@127.0.0.1:60350 is creating a queue on target resource: ServerSessionImpl() [with parameters: [QueueConfiguration [id=null, name=dd080225-7ea0-11ed-8dc8-eedb8bb46555, address=/topic/unresolved-user, routingType=null, filterString=null, durable=false, user=null, maxConsumers=null, exclusive=null, groupRebalance=null, groupRebalancePauseDispatch=null, groupBuckets=null, groupFirstKey=null, lastValue=null, lastValueKey=null, nonDestructive=null, purgeOnNoConsumers=null, enabled=null, consumersBeforeDispatch=null, delayBeforeDispatch=null, consumerPriority=null, autoDelete=null, autoDeleteDelay=null, autoDeleteMessageCount=null, ringSize=null, configurationManaged=null, temporary=true, autoCreateAddress=null, internal=null, transient=null, autoCreated=null]]]
+2022-12-18 07:54:48.652  INFO 44294 --- [-netty-threads)] org.apache.activemq.audit.base           : AMQ601019: User anonymous@127.0.0.1:60350 is getting mbean info on target resource: org.apache.activemq.artemis.core.management.impl.QueueControlImpl@3cc4fab6 []
+2022-12-18 07:54:48.654  INFO 44294 --- [-netty-threads)] org.apache.activemq.audit.base           : AMQ601265: User anonymous@127.0.0.1:60350 is creating a core consumer on target resource ServerSessionImpl() [with parameters: [10, dd080225-7ea0-11ed-8dc8-eedb8bb46555, null, 0, false, false, 0]]
+2022-12-18 07:54:48.659  INFO 44294 --- [-netty-threads)] org.apache.activemq.audit.base           : AMQ601262: User anonymous@127.0.0.1:60350 is creating address on target resource: dd034734-7ea0-11ed-8dc8-eedb8bb46555 [with parameters: [Address [name=/topic/log-user-registry, id=0, routingTypes={MULTICAST}, autoCreated=false, paused=false], true]]
+2022-12-18 07:54:48.659  INFO 44294 --- [-netty-threads)] org.apache.activemq.audit.base           : AMQ601019: User anonymous@127.0.0.1:60350 is getting mbean info on target resource: org.apache.activemq.artemis.core.management.impl.AddressControlImpl@299b2414 []
+2022-12-18 07:54:48.660  INFO 44294 --- [-netty-threads)] org.apache.activemq.audit.resource       : AMQ601065: User anonymous@127.0.0.1:60350 is creating a queue on target resource: ServerSessionImpl() [with parameters: [QueueConfiguration [id=null, name=dd0961b7-7ea0-11ed-8dc8-eedb8bb46555, address=/topic/log-user-registry, routingType=null, filterString=null, durable=false, user=null, maxConsumers=null, exclusive=null, groupRebalance=null, groupRebalancePauseDispatch=null, groupBuckets=null, groupFirstKey=null, lastValue=null, lastValueKey=null, nonDestructive=null, purgeOnNoConsumers=null, enabled=null, consumersBeforeDispatch=null, delayBeforeDispatch=null, consumerPriority=null, autoDelete=null, autoDeleteDelay=null, autoDeleteMessageCount=null, ringSize=null, configurationManaged=null, temporary=true, autoCreateAddress=null, internal=null, transient=null, autoCreated=null]]]
+2022-12-18 07:54:48.661  INFO 44294 --- [-netty-threads)] org.apache.activemq.audit.base           : AMQ601019: User anonymous@127.0.0.1:60350 is getting mbean info on target resource: org.apache.activemq.artemis.core.management.impl.QueueControlImpl@7fe3f7e4 []
+2022-12-18 07:54:48.662  INFO 44294 --- [-netty-threads)] org.apache.activemq.audit.base           : AMQ601265: User anonymous@127.0.0.1:60350 is creating a core consumer on target resource ServerSessionImpl() [with parameters: [16, dd0961b7-7ea0-11ed-8dc8-eedb8bb46555, null, 0, false, false, 0]]
+2022-12-18 07:54:48.684  INFO 44294 --- [-netty-threads)] org.apache.activemq.audit.message        : AMQ601500: User anonymous@127.0.0.1:60350 is sending a message CoreMessage[messageID=22,durable=false,userID=null,priority=4, timestamp=Sun Dec 18 07:54:48 CET 2022,expiration=0, durable=false, address=/topic/log-user-registry,size=409,properties=TypedProperties[destination=/topic/log-user-registry,content-length=68,_AMQ_CONTENT_TYPE=application/json,JMSCorrelationID=NULL-value,JMSType=NULL-value]]@874132030, with Context: RoutingContextImpl(Address=null, routingType=null, PreviousAddress=null previousRoute:null, reusable=null, version=0)
+..................................................
+
+2022-12-18 07:54:48.687  INFO 44294 --- [mpl$6@13234ac9)] org.apache.activemq.audit.message        : AMQ601501: User anonymous@127.0.0.1:60350 is consuming a message from dd0961b7-7ea0-11ed-8dc8-eedb8bb46555: Reference[22]:NON-RELIABLE:CoreMessage[messageID=22,durable=false,userID=null,priority=4, timestamp=Sun Dec 18 07:54:48 CET 2022,expiration=0, durable=false, address=/topic/log-user-registry,size=409,properties=TypedProperties[destination=/topic/log-user-registry,content-length=68,_AMQ_CONTENT_TYPE=application/json,JMSCorrelationID=NULL-value,JMSType=NULL-value]]@874132030
+2022-12-18 07:54:48.692  INFO 44294 --- [mpl$6@13234ac9)] org.apache.activemq.audit.message        : AMQ601502: User anonymous@127.0.0.1:60350 is acknowledging a message from dd0961b7-7ea0-11ed-8dc8-eedb8bb46555: CoreMessage[messageID=22,durable=false,userID=null,priority=4, timestamp=Sun Dec 18 07:54:48 CET 2022,expiration=0, durable=false, address=/topic/log-user-registry,size=409,properties=TypedProperties[destination=/topic/log-user-registry,content-length=68,_AMQ_CONTENT_TYPE=application/json,JMSCorrelationID=NULL-value,JMSType=NULL-value]]@874132030
+2022-12-18 07:54:49.085  INFO 44294 --- [    Test worker] org.eclipse.jetty.util.log               : Logging initialized @4075ms to org.eclipse.jetty.util.log.Slf4jLog
+2022-12-18 07:54:49.178  INFO 44294 --- [    Test worker] org.eclipse.jetty.server.Server          : jetty-9.4.49.v20220914; built: 2022-09-14T01:07:36.601Z; git: 4231a3b2e4cb8548a412a789936d640a97b1aa0a; jvm 17.0.5+8
+2022-12-18 07:54:49.188  INFO 44294 --- [    Test worker] o.e.jetty.server.handler.ContextHandler  : Started o.e.j.s.ServletContextHandler@74214ac3{/__admin,null,AVAILABLE}
+2022-12-18 07:54:49.191  INFO 44294 --- [    Test worker] o.e.j.s.handler.ContextHandler.ROOT      : RequestHandlerClass from context returned com.github.tomakehurst.wiremock.http.StubRequestHandler. Normalized mapped under returned 'null'
+2022-12-18 07:54:49.191  INFO 44294 --- [    Test worker] o.e.jetty.server.handler.ContextHandler  : Started o.e.j.s.ServletContextHandler@1de83be1{/,null,AVAILABLE}
+2022-12-18 07:54:49.199  INFO 44294 --- [    Test worker] o.e.jetty.server.AbstractConnector       : Started NetworkTrafficServerConnector@570089c4{HTTP/1.1, (http/1.1, h2c)}{0.0.0.0:8081}
+2022-12-18 07:54:49.199  INFO 44294 --- [    Test worker] org.eclipse.jetty.server.Server          : Started @4190ms
+2022-12-18 07:54:49.282  INFO 44294 --- [o-auto-1-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-12-18 07:54:49.282  INFO 44294 --- [o-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2022-12-18 07:54:49.284  INFO 44294 --- [o-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2022-12-18 07:54:49.478  INFO 44294 --- [o-auto-1-exec-3] c.m.w.event.WebsocketEventListener       : Websocket connection 3d22c22c848a4c19a9d0e0374c52694d terminated - SessionDisconnectEvent[sessionId=3d22c22c848a4c19a9d0e0374c52694d, CloseStatus[code=1002, reason=null]]
+2022-12-18 07:54:49.480 ERROR 44294 --- [lient-AsyncIO-3] c.m.w.u.LoggingStompSessionHandler       : Exception occurred when handling WebSocket message.
+
+java.lang.NullPointerException: null
+	at java.base/java.util.concurrent.LinkedBlockingDeque.offerLast(LinkedBlockingDeque.java:350) ~[na:na]
+	at java.base/java.util.concurrent.LinkedBlockingDeque.offer(LinkedBlockingDeque.java:634) ~[na:na]
+	at com.mtvu.websocketserver.WebSocketAuthenticationTests$2.handleFrame(WebSocketAuthenticationTests.java:100) ~[test/:na]
+	at org.springframework.messaging.simp.stomp.DefaultStompSession.invokeHandler(DefaultStompSession.java:471) ~[spring-messaging-5.3.23.jar:5.3.23]
+	at org.springframework.messaging.simp.stomp.DefaultStompSession.handleMessage(DefaultStompSession.java:457) ~[spring-messaging-5.3.23.jar:5.3.23]
+	at org.springframework.web.socket.messaging.WebSocketStompClient$WebSocketTcpConnectionHandlerAdapter.handleMessage(WebSocketStompClient.java:340) ~[spring-websocket-5.3.23.jar:5.3.23]
+	at org.springframework.web.socket.handler.WebSocketHandlerDecorator.handleMessage(WebSocketHandlerDecorator.java:75) ~[spring-websocket-5.3.23.jar:5.3.23]
+	at org.springframework.web.socket.handler.LoggingWebSocketHandlerDecorator.handleMessage(LoggingWebSocketHandlerDecorator.java:56) ~[spring-websocket-5.3.23.jar:5.3.23]
+	at org.springframework.web.socket.sockjs.client.AbstractClientSockJsSession.handleMessageFrame(AbstractClientSockJsSession.java:294) ~[spring-websocket-5.3.23.jar:5.3.23]
+	at org.springframework.web.socket.sockjs.client.AbstractClientSockJsSession.handleFrame(AbstractClientSockJsSession.java:230) ~[spring-websocket-5.3.23.jar:5.3.23]
+	at org.springframework.web.socket.sockjs.client.WebSocketTransport$ClientSockJsWebSocketHandler.handleTextMessage(WebSocketTransport.java:163) ~[spring-websocket-5.3.23.jar:5.3.23]
+	at org.springframework.web.socket.handler.AbstractWebSocketHandler.handleMessage(AbstractWebSocketHandler.java:43) ~[spring-websocket-5.3.23.jar:5.3.23]
+	at org.springframework.web.socket.adapter.standard.StandardWebSocketHandlerAdapter.handleTextMessage(StandardWebSocketHandlerAdapter.java:114) ~[spring-websocket-5.3.23.jar:5.3.23]
+	at org.springframework.web.socket.adapter.standard.StandardWebSocketHandlerAdapter.access$000(StandardWebSocketHandlerAdapter.java:43) ~[spring-websocket-5.3.23.jar:5.3.23]
+	at org.springframework.web.socket.adapter.standard.StandardWebSocketHandlerAdapter$3.onMessage(StandardWebSocketHandlerAdapter.java:85) ~[spring-websocket-5.3.23.jar:5.3.23]
+	at org.springframework.web.socket.adapter.standard.StandardWebSocketHandlerAdapter$3.onMessage(StandardWebSocketHandlerAdapter.java:82) ~[spring-websocket-5.3.23.jar:5.3.23]
+	at org.apache.tomcat.websocket.WsFrameBase.sendMessageText(WsFrameBase.java:415) ~[tomcat-embed-websocket-9.0.65.jar:9.0.65]
+	at org.apache.tomcat.websocket.WsFrameBase.processDataText(WsFrameBase.java:515) ~[tomcat-embed-websocket-9.0.65.jar:9.0.65]
+	at org.apache.tomcat.websocket.WsFrameBase.processData(WsFrameBase.java:301) ~[tomcat-embed-websocket-9.0.65.jar:9.0.65]
+	at org.apache.tomcat.websocket.WsFrameBase.processInputBuffer(WsFrameBase.java:133) ~[tomcat-embed-websocket-9.0.65.jar:9.0.65]
+	at org.apache.tomcat.websocket.WsFrameClient.processSocketRead(WsFrameClient.java:95) ~[tomcat-embed-websocket-9.0.65.jar:9.0.65]
+	at org.apache.tomcat.websocket.WsFrameClient.resumeProcessing(WsFrameClient.java:212) ~[tomcat-embed-websocket-9.0.65.jar:9.0.65]
+	at org.apache.tomcat.websocket.WsFrameClient.access$500(WsFrameClient.java:31) ~[tomcat-embed-websocket-9.0.65.jar:9.0.65]
+	at org.apache.tomcat.websocket.WsFrameClient$WsFrameClientCompletionHandler.doResumeProcessing(WsFrameClient.java:189) ~[tomcat-embed-websocket-9.0.65.jar:9.0.65]
+	at org.apache.tomcat.websocket.WsFrameClient$WsFrameClientCompletionHandler.completed(WsFrameClient.java:163) ~[tomcat-embed-websocket-9.0.65.jar:9.0.65]
+	at org.apache.tomcat.websocket.WsFrameClient$WsFrameClientCompletionHandler.completed(WsFrameClient.java:148) ~[tomcat-embed-websocket-9.0.65.jar:9.0.65]
+	at java.base/sun.nio.ch.Invoker.invokeUnchecked(Invoker.java:129) ~[na:na]
+	at java.base/sun.nio.ch.UnixAsynchronousSocketChannelImpl.finishRead(UnixAsynchronousSocketChannelImpl.java:447) ~[na:na]
+	at java.base/sun.nio.ch.UnixAsynchronousSocketChannelImpl.finish(UnixAsynchronousSocketChannelImpl.java:195) ~[na:na]
+	at java.base/sun.nio.ch.UnixAsynchronousSocketChannelImpl.onEvent(UnixAsynchronousSocketChannelImpl.java:217) ~[na:na]
+	at java.base/sun.nio.ch.KQueuePort$EventHandlerTask.run(KQueuePort.java:312) ~[na:na]
+	at java.base/sun.nio.ch.AsynchronousChannelGroupImpl$1.run(AsynchronousChannelGroupImpl.java:113) ~[na:na]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at java.base/java.lang.Thread.run(Thread.java:833) ~[na:na]
+
+2022-12-18 07:54:49.482 ERROR 44294 --- [lient-AsyncIO-3] c.m.w.u.LoggingStompSessionHandler       : Exception occurred when transporting data.
+
+org.springframework.messaging.simp.stomp.ConnectionLostException: Connection closed
+	at org.springframework.messaging.simp.stomp.DefaultStompSession.afterConnectionClosed(DefaultStompSession.java:526) ~[spring-messaging-5.3.23.jar:5.3.23]
+	at org.springframework.web.socket.messaging.WebSocketStompClient$WebSocketTcpConnectionHandlerAdapter.afterConnectionClosed(WebSocketStompClient.java:352) ~[spring-websocket-5.3.23.jar:5.3.23]
+	at org.springframework.web.socket.handler.WebSocketHandlerDecorator.afterConnectionClosed(WebSocketHandlerDecorator.java:85) ~[spring-websocket-5.3.23.jar:5.3.23]
+	at org.springframework.web.socket.handler.LoggingWebSocketHandlerDecorator.afterConnectionClosed(LoggingWebSocketHandlerDecorator.java:72) ~[spring-websocket-5.3.23.jar:5.3.23]
+	at org.springframework.web.socket.sockjs.client.AbstractClientSockJsSession.afterTransportClosed(AbstractClientSockJsSession.java:350) ~[spring-websocket-5.3.23.jar:5.3.23]
+	at org.springframework.web.socket.sockjs.client.WebSocketTransport$ClientSockJsWebSocketHandler.afterConnectionClosed(WebSocketTransport.java:173) ~[spring-websocket-5.3.23.jar:5.3.23]
+	at org.springframework.web.socket.adapter.standard.StandardWebSocketHandlerAdapter.onClose(StandardWebSocketHandlerAdapter.java:145) ~[spring-websocket-5.3.23.jar:5.3.23]
+	at org.apache.tomcat.websocket.WsSession.fireEndpointOnClose(WsSession.java:767) ~[tomcat-embed-websocket-9.0.65.jar:9.0.65]
+	at org.apache.tomcat.websocket.WsSession.doClose(WsSession.java:715) ~[tomcat-embed-websocket-9.0.65.jar:9.0.65]
+	at org.apache.tomcat.websocket.WsSession.doClose(WsSession.java:665) ~[tomcat-embed-websocket-9.0.65.jar:9.0.65]
+	at org.apache.tomcat.websocket.WsSession.close(WsSession.java:652) ~[tomcat-embed-websocket-9.0.65.jar:9.0.65]
+	at org.springframework.web.socket.adapter.standard.StandardWebSocketSession.closeInternal(StandardWebSocketSession.java:235) ~[spring-websocket-5.3.23.jar:5.3.23]
+	at org.springframework.web.socket.adapter.AbstractWebSocketSession.close(AbstractWebSocketSession.java:142) ~[spring-websocket-5.3.23.jar:5.3.23]
+	at org.springframework.web.socket.sockjs.client.WebSocketClientSockJsSession.disconnect(WebSocketClientSockJsSession.java:127) ~[spring-websocket-5.3.23.jar:5.3.23]
+	at org.springframework.web.socket.sockjs.client.AbstractClientSockJsSession.closeInternal(AbstractClientSockJsSession.java:213) ~[spring-websocket-5.3.23.jar:5.3.23]
+	at org.springframework.web.socket.sockjs.client.AbstractClientSockJsSession.silentClose(AbstractClientSockJsSession.java:190) ~[spring-websocket-5.3.23.jar:5.3.23]
+	at org.springframework.web.socket.sockjs.client.AbstractClientSockJsSession.handleCloseFrame(AbstractClientSockJsSession.java:322) ~[spring-websocket-5.3.23.jar:5.3.23]
+	at org.springframework.web.socket.sockjs.client.AbstractClientSockJsSession.handleFrame(AbstractClientSockJsSession.java:233) ~[spring-websocket-5.3.23.jar:5.3.23]
+	at org.springframework.web.socket.sockjs.client.WebSocketTransport$ClientSockJsWebSocketHandler.handleTextMessage(WebSocketTransport.java:163) ~[spring-websocket-5.3.23.jar:5.3.23]
+	at org.springframework.web.socket.handler.AbstractWebSocketHandler.handleMessage(AbstractWebSocketHandler.java:43) ~[spring-websocket-5.3.23.jar:5.3.23]
+	at org.springframework.web.socket.adapter.standard.StandardWebSocketHandlerAdapter.handleTextMessage(StandardWebSocketHandlerAdapter.java:114) ~[spring-websocket-5.3.23.jar:5.3.23]
+	at org.springframework.web.socket.adapter.standard.StandardWebSocketHandlerAdapter.access$000(StandardWebSocketHandlerAdapter.java:43) ~[spring-websocket-5.3.23.jar:5.3.23]
+	at org.springframework.web.socket.adapter.standard.StandardWebSocketHandlerAdapter$3.onMessage(StandardWebSocketHandlerAdapter.java:85) ~[spring-websocket-5.3.23.jar:5.3.23]
+	at org.springframework.web.socket.adapter.standard.StandardWebSocketHandlerAdapter$3.onMessage(StandardWebSocketHandlerAdapter.java:82) ~[spring-websocket-5.3.23.jar:5.3.23]
+	at org.apache.tomcat.websocket.WsFrameBase.sendMessageText(WsFrameBase.java:415) ~[tomcat-embed-websocket-9.0.65.jar:9.0.65]
+	at org.apache.tomcat.websocket.WsFrameBase.processDataText(WsFrameBase.java:515) ~[tomcat-embed-websocket-9.0.65.jar:9.0.65]
+	at org.apache.tomcat.websocket.WsFrameBase.processData(WsFrameBase.java:301) ~[tomcat-embed-websocket-9.0.65.jar:9.0.65]
+	at org.apache.tomcat.websocket.WsFrameBase.processInputBuffer(WsFrameBase.java:133) ~[tomcat-embed-websocket-9.0.65.jar:9.0.65]
+	at org.apache.tomcat.websocket.WsFrameClient.processSocketRead(WsFrameClient.java:95) ~[tomcat-embed-websocket-9.0.65.jar:9.0.65]
+	at org.apache.tomcat.websocket.WsFrameClient.resumeProcessing(WsFrameClient.java:212) ~[tomcat-embed-websocket-9.0.65.jar:9.0.65]
+	at org.apache.tomcat.websocket.WsFrameClient.access$500(WsFrameClient.java:31) ~[tomcat-embed-websocket-9.0.65.jar:9.0.65]
+	at org.apache.tomcat.websocket.WsFrameClient$WsFrameClientCompletionHandler.doResumeProcessing(WsFrameClient.java:189) ~[tomcat-embed-websocket-9.0.65.jar:9.0.65]
+	at org.apache.tomcat.websocket.WsFrameClient$WsFrameClientCompletionHandler.completed(WsFrameClient.java:163) ~[tomcat-embed-websocket-9.0.65.jar:9.0.65]
+	at org.apache.tomcat.websocket.WsFrameClient$WsFrameClientCompletionHandler.completed(WsFrameClient.java:148) ~[tomcat-embed-websocket-9.0.65.jar:9.0.65]
+	at java.base/sun.nio.ch.Invoker.invokeUnchecked(Invoker.java:129) ~[na:na]
+	at java.base/sun.nio.ch.Invoker.invokeDirect(Invoker.java:160) ~[na:na]
+	at java.base/sun.nio.ch.UnixAsynchronousSocketChannelImpl.implRead(UnixAsynchronousSocketChannelImpl.java:573) ~[na:na]
+	at java.base/sun.nio.ch.AsynchronousSocketChannelImpl.read(AsynchronousSocketChannelImpl.java:276) ~[na:na]
+	at java.base/sun.nio.ch.AsynchronousSocketChannelImpl.read(AsynchronousSocketChannelImpl.java:297) ~[na:na]
+	at java.base/java.nio.channels.AsynchronousSocketChannel.read(AsynchronousSocketChannel.java:425) ~[na:na]
+	at org.apache.tomcat.websocket.AsyncChannelWrapperNonSecure.read(AsyncChannelWrapperNonSecure.java:53) ~[tomcat-embed-websocket-9.0.65.jar:9.0.65]
+	at org.apache.tomcat.websocket.WsFrameClient.processSocketRead(WsFrameClient.java:101) ~[tomcat-embed-websocket-9.0.65.jar:9.0.65]
+	at org.apache.tomcat.websocket.WsFrameClient.resumeProcessing(WsFrameClient.java:212) ~[tomcat-embed-websocket-9.0.65.jar:9.0.65]
+	at org.apache.tomcat.websocket.WsFrameClient.access$500(WsFrameClient.java:31) ~[tomcat-embed-websocket-9.0.65.jar:9.0.65]
+	at org.apache.tomcat.websocket.WsFrameClient$WsFrameClientCompletionHandler.doResumeProcessing(WsFrameClient.java:189) ~[tomcat-embed-websocket-9.0.65.jar:9.0.65]
+	at org.apache.tomcat.websocket.WsFrameClient$WsFrameClientCompletionHandler.completed(WsFrameClient.java:163) ~[tomcat-embed-websocket-9.0.65.jar:9.0.65]
+	at org.apache.tomcat.websocket.WsFrameClient$WsFrameClientCompletionHandler.completed(WsFrameClient.java:148) ~[tomcat-embed-websocket-9.0.65.jar:9.0.65]
+	at java.base/sun.nio.ch.Invoker.invokeUnchecked(Invoker.java:129) ~[na:na]
+	at java.base/sun.nio.ch.UnixAsynchronousSocketChannelImpl.finishRead(UnixAsynchronousSocketChannelImpl.java:447) ~[na:na]
+	at java.base/sun.nio.ch.UnixAsynchronousSocketChannelImpl.finish(UnixAsynchronousSocketChannelImpl.java:195) ~[na:na]
+	at java.base/sun.nio.ch.UnixAsynchronousSocketChannelImpl.onEvent(UnixAsynchronousSocketChannelImpl.java:217) ~[na:na]
+	at java.base/sun.nio.ch.KQueuePort$EventHandlerTask.run(KQueuePort.java:312) ~[na:na]
+	at java.base/sun.nio.ch.AsynchronousChannelGroupImpl$1.run(AsynchronousChannelGroupImpl.java:113) ~[na:na]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at java.base/java.lang.Thread.run(Thread.java:833) ~[na:na]
+
+2022-12-18 07:54:49.484  WARN 44294 --- [o-auto-1-exec-3] w.s.h.ExceptionWebSocketHandlerDecorator : Unhandled exception after connection closed for ExceptionWebSocketHandlerDecorator [delegate=LoggingWebSocketHandlerDecorator [delegate=SubProtocolWebSocketHandler[StompSubProtocolHandler[v10.stomp, v11.stomp, v12.stomp]]]]
+
+org.springframework.messaging.MessageDeliveryException: Failed to send message to ExecutorSubscribableChannel[clientInboundChannel]; nested exception is org.springframework.security.access.AccessDeniedException: Access is denied
+	at org.springframework.messaging.support.AbstractMessageChannel.send(AbstractMessageChannel.java:149) ~[spring-messaging-5.3.23.jar:5.3.23]
+	at org.springframework.messaging.support.AbstractMessageChannel.send(AbstractMessageChannel.java:125) ~[spring-messaging-5.3.23.jar:5.3.23]
+	at org.springframework.web.socket.messaging.StompSubProtocolHandler.afterSessionEnded(StompSubProtocolHandler.java:652) ~[spring-websocket-5.3.23.jar:5.3.23]
+	at org.springframework.web.socket.messaging.SubProtocolWebSocketHandler.clearSession(SubProtocolWebSocketHandler.java:530) ~[spring-websocket-5.3.23.jar:5.3.23]
+	at org.springframework.web.socket.messaging.SubProtocolWebSocketHandler.afterConnectionClosed(SubProtocolWebSocketHandler.java:399) ~[spring-websocket-5.3.23.jar:5.3.23]
+	at org.springframework.web.socket.handler.WebSocketHandlerDecorator.afterConnectionClosed(WebSocketHandlerDecorator.java:85) ~[spring-websocket-5.3.23.jar:5.3.23]
+	at org.springframework.web.socket.handler.LoggingWebSocketHandlerDecorator.afterConnectionClosed(LoggingWebSocketHandlerDecorator.java:72) ~[spring-websocket-5.3.23.jar:5.3.23]
+	at org.springframework.web.socket.handler.ExceptionWebSocketHandlerDecorator.afterConnectionClosed(ExceptionWebSocketHandlerDecorator.java:78) ~[spring-websocket-5.3.23.jar:5.3.23]
+	at org.springframework.web.socket.sockjs.transport.session.AbstractSockJsSession.close(AbstractSockJsSession.java:224) ~[spring-websocket-5.3.23.jar:5.3.23]
+	at org.springframework.web.socket.handler.WebSocketSessionDecorator.close(WebSocketSessionDecorator.java:160) ~[spring-websocket-5.3.23.jar:5.3.23]
+	at org.springframework.web.socket.handler.ConcurrentWebSocketSessionDecorator.close(ConcurrentWebSocketSessionDecorator.java:271) ~[spring-websocket-5.3.23.jar:5.3.23]
+	at org.springframework.web.socket.messaging.StompSubProtocolHandler.sendErrorMessage(StompSubProtocolHandler.java:388) ~[spring-websocket-5.3.23.jar:5.3.23]
+	at org.springframework.web.socket.messaging.StompSubProtocolHandler.handleError(StompSubProtocolHandler.java:355) ~[spring-websocket-5.3.23.jar:5.3.23]
+	at org.springframework.web.socket.messaging.StompSubProtocolHandler.handleMessageFromClient(StompSubProtocolHandler.java:342) ~[spring-websocket-5.3.23.jar:5.3.23]
+	at org.springframework.web.socket.messaging.SubProtocolWebSocketHandler.handleMessage(SubProtocolWebSocketHandler.java:335) ~[spring-websocket-5.3.23.jar:5.3.23]
+	at org.springframework.web.socket.handler.WebSocketHandlerDecorator.handleMessage(WebSocketHandlerDecorator.java:75) ~[spring-websocket-5.3.23.jar:5.3.23]
+	at org.springframework.web.socket.handler.LoggingWebSocketHandlerDecorator.handleMessage(LoggingWebSocketHandlerDecorator.java:56) ~[spring-websocket-5.3.23.jar:5.3.23]
+	at org.springframework.web.socket.handler.ExceptionWebSocketHandlerDecorator.handleMessage(ExceptionWebSocketHandlerDecorator.java:58) ~[spring-websocket-5.3.23.jar:5.3.23]
+	at org.springframework.web.socket.sockjs.transport.session.AbstractSockJsSession.delegateMessages(AbstractSockJsSession.java:387) ~[spring-websocket-5.3.23.jar:5.3.23]
+	at org.springframework.web.socket.sockjs.transport.session.WebSocketServerSockJsSession.handleMessage(WebSocketServerSockJsSession.java:195) ~[spring-websocket-5.3.23.jar:5.3.23]
+	at org.springframework.web.socket.sockjs.transport.handler.SockJsWebSocketHandler.handleTextMessage(SockJsWebSocketHandler.java:93) ~[spring-websocket-5.3.23.jar:5.3.23]
+	at org.springframework.web.socket.handler.AbstractWebSocketHandler.handleMessage(AbstractWebSocketHandler.java:43) ~[spring-websocket-5.3.23.jar:5.3.23]
+	at org.springframework.web.socket.adapter.standard.StandardWebSocketHandlerAdapter.handleTextMessage(StandardWebSocketHandlerAdapter.java:114) ~[spring-websocket-5.3.23.jar:5.3.23]
+	at org.springframework.web.socket.adapter.standard.StandardWebSocketHandlerAdapter.access$000(StandardWebSocketHandlerAdapter.java:43) ~[spring-websocket-5.3.23.jar:5.3.23]
+	at org.springframework.web.socket.adapter.standard.StandardWebSocketHandlerAdapter$3.onMessage(StandardWebSocketHandlerAdapter.java:85) ~[spring-websocket-5.3.23.jar:5.3.23]
+	at org.springframework.web.socket.adapter.standard.StandardWebSocketHandlerAdapter$3.onMessage(StandardWebSocketHandlerAdapter.java:82) ~[spring-websocket-5.3.23.jar:5.3.23]
+	at org.apache.tomcat.websocket.WsFrameBase.sendMessageText(WsFrameBase.java:415) ~[tomcat-embed-websocket-9.0.65.jar:9.0.65]
+	at org.apache.tomcat.websocket.server.WsFrameServer.sendMessageText(WsFrameServer.java:129) ~[tomcat-embed-websocket-9.0.65.jar:9.0.65]
+	at org.apache.tomcat.websocket.WsFrameBase.processDataText(WsFrameBase.java:515) ~[tomcat-embed-websocket-9.0.65.jar:9.0.65]
+	at org.apache.tomcat.websocket.WsFrameBase.processData(WsFrameBase.java:301) ~[tomcat-embed-websocket-9.0.65.jar:9.0.65]
+	at org.apache.tomcat.websocket.WsFrameBase.processInputBuffer(WsFrameBase.java:133) ~[tomcat-embed-websocket-9.0.65.jar:9.0.65]
+	at org.apache.tomcat.websocket.server.WsFrameServer.onDataAvailable(WsFrameServer.java:85) ~[tomcat-embed-websocket-9.0.65.jar:9.0.65]
+	at org.apache.tomcat.websocket.server.WsFrameServer.doOnDataAvailable(WsFrameServer.java:183) ~[tomcat-embed-websocket-9.0.65.jar:9.0.65]
+	at org.apache.tomcat.websocket.server.WsFrameServer.notifyDataAvailable(WsFrameServer.java:162) ~[tomcat-embed-websocket-9.0.65.jar:9.0.65]
+	at org.apache.tomcat.websocket.server.WsHttpUpgradeHandler.upgradeDispatch(WsHttpUpgradeHandler.java:157) ~[tomcat-embed-websocket-9.0.65.jar:9.0.65]
+	at org.apache.coyote.http11.upgrade.UpgradeProcessorInternal.dispatch(UpgradeProcessorInternal.java:60) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:59) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:890) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1789) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at java.base/java.lang.Thread.run(Thread.java:833) ~[na:na]
+Caused by: org.springframework.security.access.AccessDeniedException: Access is denied
+	at org.springframework.security.access.vote.AffirmativeBased.decide(AffirmativeBased.java:73) ~[spring-security-core-5.7.3.jar:5.7.3]
+	at org.springframework.security.access.intercept.AbstractSecurityInterceptor.attemptAuthorization(AbstractSecurityInterceptor.java:239) ~[spring-security-core-5.7.3.jar:5.7.3]
+	at org.springframework.security.access.intercept.AbstractSecurityInterceptor.beforeInvocation(AbstractSecurityInterceptor.java:208) ~[spring-security-core-5.7.3.jar:5.7.3]
+	at org.springframework.security.messaging.access.intercept.ChannelSecurityInterceptor.preSend(ChannelSecurityInterceptor.java:70) ~[spring-security-messaging-5.7.3.jar:5.7.3]
+	at org.springframework.messaging.support.AbstractMessageChannel$ChannelInterceptorChain.applyPreSend(AbstractMessageChannel.java:181) ~[spring-messaging-5.3.23.jar:5.3.23]
+	at org.springframework.messaging.support.AbstractMessageChannel.send(AbstractMessageChannel.java:135) ~[spring-messaging-5.3.23.jar:5.3.23]
+	... 43 common frames omitted
+
+2022-12-18 07:54:49.489  INFO 44294 --- [    Test worker] o.e.jetty.server.AbstractConnector       : Stopped NetworkTrafficServerConnector@570089c4{HTTP/1.1, (http/1.1, h2c)}{0.0.0.0:8081}
+2022-12-18 07:54:49.490  INFO 44294 --- [    Test worker] o.e.jetty.server.handler.ContextHandler  : Stopped o.e.j.s.ServletContextHandler@1de83be1{/,null,STOPPED}
+2022-12-18 07:54:49.490  INFO 44294 --- [    Test worker] o.e.jetty.server.handler.ContextHandler  : Stopped o.e.j.s.ServletContextHandler@74214ac3{/__admin,null,STOPPED}
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
