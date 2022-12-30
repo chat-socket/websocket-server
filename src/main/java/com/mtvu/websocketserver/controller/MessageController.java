@@ -25,7 +25,7 @@ public class MessageController {
     String messagingTopic;
 
 
-    @MessageMapping("/message/create")
+    @MessageMapping("/message")
     public void messageCreate(Principal principal, @Payload Message message) {
         var transferMessage = new TransferMessage(message, principal.getName());
         jmsTemplate.convertAndSend(messagingTopic, transferMessage);
