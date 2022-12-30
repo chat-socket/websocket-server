@@ -5,5 +5,6 @@ package com.mtvu.websocketserver.domain;
  * @project chat-socket
  **/
 public enum ReactionType {
-    LIKE
+    LIKE,
+    EMPTY
 }
