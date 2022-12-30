@@ -13,7 +13,7 @@ repositories {
 }
 
 ext {
-	set('springCloudVersion', "2021.0.4")
+    set('springCloudVersion', "2022.0.0")
 }
 
 dependencies {
@@ -26,8 +26,11 @@ dependencies {
     implementation 'org.apache.activemq:artemis-jms-server:2.26.0'
     implementation 'org.apache.commons:commons-text:1.10.0'
 //    implementation 'org.apache.commons:commons-configuration2:2.8.0'
-//    implementation 'org.apache.activemq:artemis-stomp-protocol:2.19.1'
+    implementation 'org.apache.activemq:artemis-stomp-protocol:2.26.0'
     implementation group: 'io.netty', name: 'netty-all', version: '4.1.86.Final'
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
 
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
