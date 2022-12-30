@@ -9,16 +9,13 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          jwk-set-uri: http://localhost:8081/.well-known/jwks.json
+          issuer-uri: ${OAUTH2_ISSUER_URI:http://127.0.0.1:9000}
 
   artemis:
     mode: native
-    broker-url: tcp://192.168.1.210:9876
+    broker-url: ${ARTEMIS_BROKER_URL:tcp://192.168.1.210:9876}
     user: admin
     password: secret
-
-auth:
-  jwe-key-value: classpath:simple.priv
 
 jms:
   messaging:

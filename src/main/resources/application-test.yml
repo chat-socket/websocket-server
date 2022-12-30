@@ -1,0 +1,6 @@
+spring:
+  artemis:
+    mode: embedded
+    broker-url: tcp://localhost:61616
+    embedded:
+      enabled: true

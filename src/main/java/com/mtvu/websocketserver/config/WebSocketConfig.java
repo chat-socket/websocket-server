@@ -27,7 +27,7 @@ import java.net.URI;
  * @author mvu
  * @project chat-socket
  **/
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @EnableWebSocketMessageBroker
 @EnableConfigurationProperties(ArtemisProperties.class)
 @Order(Ordered.HIGHEST_PRECEDENCE + 99)
