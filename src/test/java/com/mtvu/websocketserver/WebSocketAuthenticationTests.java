@@ -14,6 +14,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.messaging.converter.MappingJackson2MessageConverter;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.messaging.simp.stomp.StompHeaders;
 import org.springframework.messaging.simp.stomp.StompSession;
 import org.springframework.messaging.simp.stomp.StompSessionHandlerAdapter;
@@ -27,6 +28,9 @@ import org.springframework.web.socket.sockjs.client.SockJsClient;
 import org.springframework.web.socket.sockjs.client.WebSocketTransport;
 
 import java.util.Collections;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.LinkedBlockingDeque;
+import java.util.concurrent.TimeoutException;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.mockito.ArgumentMatchers.any;
@@ -48,6 +52,8 @@ class WebSocketAuthenticationTests {
     private AuthenticationProvider authenticationProvider;
     @Autowired
     private JmsTemplate jmsTemplate;
+    @Autowired
+    private SimpMessagingTemplate messagingTemplate;
     @Value("${jms.messaging.topic}")
     String messagingTopic;
 
@@ -83,7 +89,7 @@ class WebSocketAuthenticationTests {
     }
 
     @Test
-    void performWhenHasValidBearerTokenThenAllowsAccess() throws Exception {
+    void performWhenSendMessageThenBroadcastToMessagingTopic() throws Exception {
         var handshakeHeaders = new WebSocketHttpHeaders();
         var connectHeaders = new StompHeaders();
         connectHeaders.add("Authorization", "Bearer bearer-token-mocked");
@@ -92,7 +98,6 @@ class WebSocketAuthenticationTests {
             connectHeaders, new LoggingStompSessionHandler(Message.class) {
                 @Override
                 public void afterConnected(StompSession session, StompHeaders connectedHeaders) {
-                    session.subscribe("/topic/message", this);
                     session.send("/app/message", new Message("test", message));
                 }
             }).get(5, SECONDS);
@@ -102,5 +107,37 @@ class WebSocketAuthenticationTests {
         assert response instanceof TransferMessage;
         String receivedMessage = ((TransferMessage) response).getMessage();
         Assert.isTrue(message.equals(receivedMessage), message + " vs " + receivedMessage);
+    }
+
+    @Test
+    void performWhenSendMessageToAUserThenTheUserShouldReceiveIt() throws Exception {
+
+        var handshakeHeaders = new WebSocketHttpHeaders();
+        var connectHeaders = new StompHeaders();
+        connectHeaders.add("Authorization", "Bearer bearer-token-mocked");
+        var message = "myMessage";
+        var receivedMessages = new LinkedBlockingDeque<Message>();
+        session = stompClient.connect(String.format("ws://localhost:%d/websocket", rdmServerPort), handshakeHeaders,
+            connectHeaders, new LoggingStompSessionHandler(Message.class) {
+                @Override
+                public void afterConnected(StompSession session, StompHeaders connectedHeaders) {
+                    session.subscribe("/user/topic/message", this);
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                    messagingTemplate.convertAndSendToUser("user1", "/topic/message",
+                            new Message("test", message));
+                }
+                @Override
+                public void handleFrame(StompHeaders headers, Object payload) {
+                    Assert.isTrue(receivedMessages.offer((Message) payload), "Should be added");
+                }
+            }).get(5, SECONDS);
+
+        var response = receivedMessages.poll(30, SECONDS);
+        Assert.notNull(response, "No response retrieved");
+        Assert.isTrue(message.equals(response.getMessage()), message + " vs " + response.getMessage());
     }
 }
