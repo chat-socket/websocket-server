@@ -1,5 +1,6 @@
 server:
   port: 8080
+  shutdown: graceful
 
 spring:
   application:
@@ -17,7 +18,30 @@ spring:
     user: ${ARTEMIS_USER:admin}
     password: ${ARTEMIS_PASSWORD:secret}
 
+
 jms:
   client-id: websocket-client
   messaging:
     topic: /messaging-topic-shared
+
+
+management:
+  server:
+    port: 8083
+  endpoint:
+    health:
+      probes:
+        enabled: true
+  health:
+    livenessState:
+      enabled: true
+    readinessState:
+      enabled: true
+
+logging:
+  level:
+    root: INFO
+    org.springframework.web: INFO
+    org.springframework.security: INFO
+    org.springframework.security.oauth2: INFO
+    org.springframework.web.socket: INFO

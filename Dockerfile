@@ -1,4 +1,4 @@
-FROM openjdk:18-alpine AS jre-build
+FROM openjdk:18-slim AS deps-build
 WORKDIR /app
 
 # copy the dependencies into the docker image
@@ -8,10 +8,11 @@ COPY build.gradle .
 COPY settings.gradle .
 COPY src src
 
-RUN sh gradlew clean deps build
+RUN sh gradlew clean installDist
 
 # copy the executable jar into the docker image
-RUN cp build/libs/*-SNAPSHOT.jar build/app.jar
+RUN mv build/install/* build/dist
+RUN mv build/libs/*-plain.jar build/libs/app.jar
 
 
 # find JDK dependencies dynamically from jar
@@ -24,12 +25,15 @@ RUN jdeps \
 # output the dependencies at end of run
 --print-module-deps \
 # specify the the dependencies for the jar
---class-path="./build/lib/*" \
---module-path="./build/lib/*" \
+--class-path="./build/dist/lib/*" \
 # pipe the result of running jdeps on the app jar to file
-build/app.jar > jre-deps.info
+build/libs/app.jar > jre-deps.info
 
-# new since last time!
+FROM openjdk:17-alpine AS jre-build
+WORKDIR /app
+
+COPY --from=deps-build /app/jre-deps.info jre-deps.info
+
 RUN jlink --verbose \
 --compress 2 \
 --strip-java-debug-attributes \
@@ -47,10 +51,11 @@ WORKDIR /deployment
 COPY --from=jre-build /app/jre jre
 
 # copy the app dependencies
-COPY --from=jre-build /app/build/lib/* lib/
+COPY --from=deps-build /app/build/dist dist
 
-# copy the app
-COPY --from=jre-build /app/build/app.jar app.jar
+ENV JAVA_HOME=/deployment/jre
+
+EXPOSE 8080
 
 # run the app on startup
-ENTRYPOINT jre/bin/java -jar app.jar
+ENTRYPOINT /bin/sh dist/bin/application
