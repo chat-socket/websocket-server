@@ -1,13 +1,21 @@
 FROM openjdk:18-slim AS deps-build
 WORKDIR /app
 
-# copy the dependencies into the docker image
-COPY gradle gradle
-COPY gradlew .
-COPY build.gradle .
-COPY settings.gradle .
+# 1. Download the gradle distribution
+COPY gradlew ./
+COPY gradle/ gradle/
+RUN ./gradlew --version
+
+WORKDIR /app
+
+# 2. Resolve dependencies for the util and api projects
+COPY settings.gradle ./
+COPY build.gradle ./
+RUN ./gradlew dependencies
+
 COPY src src
 
+# 3. Build dist
 RUN sh gradlew clean installDist
 
 # copy the executable jar into the docker image
