@@ -3,111 +3,33 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Quarkus Chat!</title>
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/patternfly/3.24.0/css/patternfly.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/patternfly/3.24.0/css/patternfly-additions.min.css">
-
-    <style>
-        #chat {
-          resize: none;
-          overflow: hidden;
-          min-height: 300px;
-          max-height: 300px;
-      }
-    </style>
+    <title>Websocket</title>
 </head>
 
 <body>
-        <nav class="navbar navbar-default navbar-pf" role="navigation">
-                <div class="navbar-header">                  
-                  <a class="navbar-brand" href="/">
-                   <p><strong>>> Quarkus Chat!</strong></p>
-                  </a>
-                </div>
-        </nav>
-    <div class="container">
-      <br/>
-      <div class="row">
-          <input id="name" class="col-md-4" type="text" placeholder="your name">
-          <button id="connect" class="col-md-1 btn btn-primary" type="button">connect</button>
-          <br/>
-          <br/>
-      </div>
-      <div class="row">
-          <textarea class="col-md-8" id="chat"></textarea>
-      </div>
-      <div class="row">
-          <input class="col-md-6" id="msg" type="text" placeholder="enter your message">
-          <button class="col-md-1 btn btn-primary" id="send" type="button" disabled>send</button>
-      </div>
-      
-      </div>
+    <input type="text" placeholder="Your access token" id="myInput">
+    <p id="message"></p>
+    <button type="button" onclick="connect();">Connect</button>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/patternfly/3.24.0/js/patternfly.min.js"></script>
+    <script>
+        function connect(){
+            // Your access token should start WITHOUT Bearer keyword
+            // e.g. eyJraWQiOiI0YTI1NzJmOS1lODYzLTRiNjctOGM0Zi1mNjA4OWVmMzllMGYiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJnbG1hbmh0dUBnbWFpbC5jb20iLCJhdWQiOiJjaGF0LXdlYi1jbGllbnQtaWQiLCJuYmYiOjE2NzQ4NjkxMDYsInNjb3BlIjpbImdyb3Vwczp3cml0ZSIsInByb2ZpbGU6d3JpdGUiLCJtZXNzYWdlOnJlYWQiLCJvcGVuaWQiLCJwcm9maWxlIiwiZ3JvdXBzOnJlYWQiLCJtZXNzYWdlOndyaXRlIiwicHJvZmlsZTpyZWFkIl0sImlzcyI6Imh0dHA6Ly8xMjcuMC4wLjE6OTAwMCIsImV4cCI6MTY3NDg2OTcwNiwiaWF0IjoxNjc0ODY5MTA2fQ.BpHiRnrOf0Y8XY9fNmRseDqkpz5hVE4zHN2OIXYOJ_ntRMbYQxOm0fc-y8nNsRvP3fJCInR5V6kjXgjJiMRxWmdn8Rr5402eeqyEC2Xori62hxHD_6bwAtXne5mNIHJi59ZDq_23uw_sd_xuietPsp9VSjucgJ0OZS_zelQI8uLepElLwiKnXVAK_A6lcmESWHqat5c2ry58mmiKImgAG7BZpeYXEFzco9adeJvt-Cea4iCPUvFSGqj8uzDWuCHuxaGagbhDMit3fNtJm6t-W1RitbElE33YQsnUabdXLvXMVmHwt5dxBURDJ2cyTKOCzN1qeRDsvfH9AQMixAO71g
+            var messageTag = document.getElementById("message");
+            var inputTag = document.getElementById("myInput");
 
-    <script type="text/javascript">
-      var connected = false;
-      var socket;
+            // Displaying the value
+            const ws = new WebSocket(`ws://localhost:8080/ws`, ["access_token", inputTag.value] );
+            ws.onopen = function() {
+                console.log("Connected to the web socket");
+                messageTag.innerHTML = "Connected!";
+            };
 
-      $( document ).ready(function() {
-          $("#connect").click(connect);
-          $("#send").click(sendMessage);
-
-          $("#name").keypress(function(event){
-              if(event.keyCode == 13 || event.which == 13) {
-                  connect();
-              }
-          });
-
-          $("#msg").keypress(function(event) {
-              if(event.keyCode == 13 || event.which == 13) {
-                  sendMessage();
-              }
-          });
-
-        $("#chat").change(function() {
-            scrollToBottom();
-          });
-
-          $("#name").focus();
-      });
-
-      var connect = function() {
-          if (! connected) {
-              var name = $("#name").val();
-              console.log("Val: " + name);
-              socket = new WebSocket("ws://" + location.host + "/chat/" + name);
-              socket.onopen = function() {
-                  connected = true;
-                  console.log("Connected to the web socket");
-                  $("#send").attr("disabled", false);
-                  $("#connect").attr("disabled", true);
-                  $("#name").attr("disabled", true);
-                  $("#msg").focus();
-              };
-              socket.onmessage =function(m) {
-                  console.log("Got message: " + m.data);
-                  $("#chat").append(m.data + "\n");
-                  scrollToBottom();
-              };
-          }
-      };
-
-      var sendMessage = function() {
-          if (connected) {
-              var value = $("#msg").val();
-              console.log("Sending " + value);
-              socket.send(value);
-              $("#msg").val("");
-          }
-      };
-
-      var scrollToBottom = function () {
-        $('#chat').scrollTop($('#chat')[0].scrollHeight);
-      };
-
+            ws.onerror = function (err) {
+                console.log(err);
+                messageTag.innerHTML = "Cannot connect to WS server";
+            }
+        }
     </script>
 </body>
 

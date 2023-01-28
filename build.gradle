@@ -12,6 +12,10 @@ dependencies {
     implementation enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}")
     implementation 'io.quarkus:quarkus-websockets'
     implementation 'io.quarkus:quarkus-arc'
+    implementation("io.quarkus:quarkus-oidc")
+    implementation("io.quarkus:quarkus-reactive-routes")
+
+
     testImplementation 'io.quarkus:quarkus-junit5'
 }
 

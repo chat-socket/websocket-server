@@ -1,25 +1,31 @@
-package com.mtvu.websocketserver;
+package com.mtvu.websocketserver.handler;
 
+
+import com.mtvu.websocketserver.config.WebSocketSecurityConfigurator;
+import io.quarkus.oidc.UserInfo;
+import io.quarkus.security.Authenticated;
+
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+import javax.websocket.*;
+import javax.websocket.server.PathParam;
+import javax.websocket.server.ServerEndpoint;
+import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.websocket.OnClose;
-import javax.websocket.OnError;
-import javax.websocket.OnMessage;
-import javax.websocket.OnOpen;
-import javax.websocket.server.PathParam;
-import javax.websocket.server.ServerEndpoint;
-import javax.websocket.Session;
-
-
-@ServerEndpoint("/chat/{username}")
 @ApplicationScoped
-public class WebsocketServerApplication {
+@Authenticated
+@ServerEndpoint(value = "/ws", configurator = WebSocketSecurityConfigurator.class)
+public class WebsocketHandler {
     Map<String, Session> sessions = new ConcurrentHashMap<>();
 
+    @Inject
+    UserInfo userInfo;
+
     @OnOpen
-    public void onOpen(Session session, @PathParam("username") String username) {
+    public void onOpen(Session session) throws IOException {
+        var username = userInfo.get("sub").toString();
         sessions.put(username, session);
     }
 
