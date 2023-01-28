@@ -1,52 +1,47 @@
-# com.mtvu.websocketserver
+## Simple Websocket authentication using OAuth2 access token
 
-This project uses Quarkus, the Supersonic Subatomic Java Framework.
+### The hack
+Currently, websocket protocol doesn't allow us to send any custom header
+parameter during the initial handshake request. However, we can modify the Sec-WebSocket-Protocol header to include
+our access token, as following:
 
-If you want to learn more about Quarkus, please visit its website: https://quarkus.io/ .
-
-## Running the application in dev mode
-
-You can run your application in dev mode that enables live coding using:
-```shell script
-./gradlew quarkusDev
+```javascript
+const ws = new WebSocket(`ws://localhost:8080/ws`, ["access_token", "your-token"] );
 ```
 
-> **_NOTE:_**  Quarkus now ships with a Dev UI, which is available in dev mode only at http://localhost:8080/q/dev/.
+Then, your WS handshake request header will look like:
 
-## Packaging and running the application
-
-The application can be packaged using:
-```shell script
-./gradlew build
 ```
-It produces the `quarkus-run.jar` file in the `build/quarkus-app/` directory.
-Be aware that it’s not an _über-jar_ as the dependencies are copied into the `build/quarkus-app/lib/` directory.
-
-The application is now runnable using `java -jar build/quarkus-app/quarkus-run.jar`.
-
-If you want to build an _über-jar_, execute the following command:
-```shell script
-./gradlew build -Dquarkus.package.type=uber-jar
+Sec-WebSocket-Extensions: permessage-deflate; client_max_window_bits
+Sec-WebSocket-Key: H5LOmJtnNZ4GeQw6hT77sw==
+Sec-WebSocket-Protocol: access_token, eyJraWQiOiI4OTE0NjczNC04YjdkLTQwZWYtYTA1Ni0xYzlmYzhjNDE5M2EiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJnbG1hbmh0dUBnbWFpbC5jb20iLCJhdWQiOiJjaGF0LXdlYi1jbGllbnQtaWQiLCJuYmYiOjE2NzQ4NzAzMjYsInNjb3BlIjpbImdyb3Vwczp3cml0ZSIsInByb2ZpbGU6d3JpdGUiLCJtZXNzYWdlOnJlYWQiLCJvcGVuaWQiLCJwcm9maWxlIiwiZ3JvdXBzOnJlYWQiLCJtZXNzYWdlOndyaXRlIiwicHJvZmlsZTpyZWFkIl0sImlzcyI6Imh0dHA6Ly8xMjcuMC4wLjE6OTAwMCIsImV4cCI6MTY3NDg3MDkyNiwiaWF0IjoxNjc0ODcwMzI2fQ.W0Ds_3zD-mr8XhRjpQjT8_hCRbgnqt7I6Z7jV7iNkT2jwYa6e1H5p9VmSzNJcsHKEWV-bjuvfEyNsIZ1sRa03CIP3vc75_7mTn9tj6T9D2Jhkv7Bw0bMj8KJMeSL0yvYtCbpZVHJGL5y9Dv_vpZoIDqIuNHlQZtzixSB521s0RrX5AcjSci4Hcaf3zKvQbbNjzUgLdT3XijpmWiMjZbSHqjiMfVVFbdQ0E-sEPNLo5Rc30sMdPQ-O1nka4xqhKQ7Ue7siJ2h2OX9MQYUihDxVnubtBk0ZuzuCsGlpKeaJo8QJfopeiWdQep31ESta2GMrIULxJ2_S7UtpCt-nS28Hg
 ```
 
-The application, packaged as an _über-jar_, is now runnable using `java -jar build/*-runner.jar`.
+Now, in our server implementation, we just need to extract the access token and communicate with our oauth2 provider to validate this user.
 
-## Creating a native executable
+For Quarkus, since we already have a built-in library that support Oidc authentication and authorization, 
+we just need to utilise this library to validate our user by setting the token to the "Authorization" header of the current request!
 
-You can create a native executable using: 
-```shell script
-./gradlew build -Dquarkus.package.type=native
+
+### To run this demo
+Step 1: Update the application.properties file with your Oidc provider:
+```
+quarkus.oidc.client-id=<your client id>
+quarkus.oidc.credentials.secret=<your client secret>
+quarkus.oidc.auth-server-url=<your auth server url>
 ```
 
-Or, if you don't have GraalVM installed, you can run the native executable build in a container using: 
-```shell script
-./gradlew build -Dquarkus.package.type=native -Dquarkus.native.container-build=true
+Step 2: Grab your access token from your Oidc provider
+See https://quarkus.io/guides/security-openid-connect#quarkus-oidc_quarkus.oidc.discovery-enabled
+
+E.g.:
+```
+curl --insecure -X POST http://localhost:8180/realms/quarkus/protocol/openid-connect/token \
+    --user backend-service:secret \
+    -H 'content-type: application/x-www-form-urlencoded' \
+    -d 'username=alice&password=alice&grant_type=password' | jq --raw-output '.access_token' \
 ```
 
-You can then execute your native executable with: `./build/com.mtvu.websocketserver-1.0.0-SNAPSHOT-runner`
+Step 3: Go to http://localhost:8080/ and connect with your access token
 
-If you want to learn more about building native executables, please consult https://quarkus.io/guides/gradle-tooling.
-
-## Related Guides
-
-- WebSockets ([guide](https://quarkus.io/guides/websockets)): WebSocket communication channel support
+Cheers !
