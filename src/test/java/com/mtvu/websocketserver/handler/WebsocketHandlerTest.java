@@ -1,21 +1,38 @@
 package com.mtvu.websocketserver.handler;
 
-
+import com.mtvu.websocketserver.domain.GenericMessage;
+import com.mtvu.websocketserver.domain.message.ChatMessage;
+import com.mtvu.websocketserver.domain.message.MessageType;
+import com.mtvu.websocketserver.domain.message.TextMessageContent;
+import com.mtvu.websocketserver.handler.config.KafkaTestResourceLifecycleManager;
+import com.mtvu.websocketserver.jackson.GenericMessageEncoder;
+import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.common.http.TestHTTPResource;
 import io.quarkus.test.junit.QuarkusTest;
+import io.quarkus.test.oidc.server.OidcWiremockTestResource;
+import io.smallrye.reactive.messaging.providers.connectors.InMemoryConnector;
+import io.smallrye.reactive.messaging.providers.connectors.InMemorySink;
+import org.eclipse.microprofile.reactive.messaging.Message;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import static org.awaitility.Awaitility.await;
 
+
+import javax.enterprise.inject.Any;
+import javax.inject.Inject;
 import javax.websocket.*;
-import java.io.IOException;
 import java.net.URI;
-import java.util.Arrays;
+import java.time.OffsetDateTime;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.TimeUnit;
 
+
 @QuarkusTest
+@QuarkusTestResource(KafkaTestResourceLifecycleManager.class)
+@QuarkusTestResource(OidcWiremockTestResource.class)
 public class WebsocketHandlerTest {
 
     private static final LinkedBlockingDeque<String> MESSAGES = new LinkedBlockingDeque<>();
@@ -23,22 +40,42 @@ public class WebsocketHandlerTest {
     @TestHTTPResource("/ws")
     URI uri;
 
+    @Inject
+    @Any
+    InMemoryConnector connector;
+
+
     @Test
     public void testWebsocketChat() throws Exception {
         var configBuilder = ClientEndpointConfig.Builder.create();
-        configBuilder.configurator(new ClientEndpointConfig.Configurator() {
-            @Override
-            public void beforeRequest(Map<String, List<String>> headers) {
-                headers.put("Cookie", Arrays.asList("token=abc"));
-            }
-        });
+        var username = "alice";
+        List<String> subProtocols = new ArrayList<>();
+        subProtocols.add("access_token");
+        subProtocols.add(OidcWiremockTestResource.getAccessToken(username, Set.of("user")));
+        configBuilder.preferredSubprotocols(subProtocols);
+        configBuilder.encoders(List.of(GenericMessageEncoder.class));
         ClientEndpointConfig clientConfig = configBuilder.build();
         var container = ContainerProvider.getWebSocketContainer();
         try (Session session = container.connectToServer(Client.class, clientConfig, uri)) {
-            Assertions.assertEquals("CONNECT", MESSAGES.poll(10, TimeUnit.SECONDS));
-            Assertions.assertEquals("User stu joined", MESSAGES.poll(10, TimeUnit.SECONDS));
-            session.getAsyncRemote().sendText("hello world");
-            Assertions.assertEquals(">> stu: hello world", MESSAGES.poll(10, TimeUnit.SECONDS));
+            Assertions.assertEquals("READY", MESSAGES.poll(10, TimeUnit.SECONDS));
+            GenericMessage message = ChatMessage.builder()
+                    .messageType(MessageType.COUPLE)
+                    .attachments(new ArrayList<>())
+                    .date(OffsetDateTime.now())
+                    .replyTo(null)
+                    .sender(username)
+                    .receiver("bob")
+                    .content(new TextMessageContent("Bla"))
+                    .build();
+
+            session.getBasicRemote().sendObject(message);
+
+            InMemorySink<ChatMessage> messagingTopicOut = connector.sink("messaging-topic-out");
+
+            await().<List<? extends Message<ChatMessage>>>until(messagingTopicOut::received, t -> t.size() == 1);
+            ChatMessage queuedBeverage = messagingTopicOut.received().get(0).getPayload();
+            Assertions.assertNotNull(queuedBeverage);
+            Assertions.assertEquals(username, queuedBeverage.getSender());
         }
     }
 
@@ -46,18 +83,7 @@ public class WebsocketHandlerTest {
 
         @Override
         public void onOpen(Session session, EndpointConfig config) {
-            MESSAGES.add("CONNECT");
-            final RemoteEndpoint.Basic remote = session.getBasicRemote();
-            session.addMessageHandler(String.class, text -> {
-                try {
-                    remote.sendText("Got your message (" + text + "). Thanks !");
-                } catch (IOException ioe) {
-                    // handle send failure here
-                }
-            });
-            // Send a message to indicate that we are ready,
-            // as the message handler may not be registered immediately after this callback.
-            session.getAsyncRemote().sendText("_ready_");
+            MESSAGES.add("READY");
         }
     }
 }

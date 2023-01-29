@@ -2,61 +2,69 @@ package com.mtvu.websocketserver.handler;
 
 
 import com.mtvu.websocketserver.config.WebSocketSecurityConfigurator;
-import io.quarkus.oidc.UserInfo;
+import com.mtvu.websocketserver.domain.GenericMessage;
+import com.mtvu.websocketserver.jackson.GenericMessageDecoder;
+import com.mtvu.websocketserver.jackson.GenericMessageEncoder;
+import com.mtvu.websocketserver.service.SessionManagementService;
+import io.quarkus.arc.All;
 import io.quarkus.security.Authenticated;
+import org.eclipse.microprofile.jwt.JsonWebToken;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
 import javax.websocket.*;
-import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 @ApplicationScoped
 @Authenticated
-@ServerEndpoint(value = "/ws", configurator = WebSocketSecurityConfigurator.class)
+@ServerEndpoint(
+        value = "/ws",
+        configurator = WebSocketSecurityConfigurator.class,
+        encoders = { GenericMessageEncoder.class },
+        decoders = { GenericMessageDecoder.class })
 public class WebsocketHandler {
-    Map<String, Session> sessions = new ConcurrentHashMap<>();
 
-    @Inject
-    UserInfo userInfo;
+    private JsonWebToken principal;
+
+    private final Map<Class<? extends GenericMessage>, GenericMessageHandler<? extends GenericMessage>> handlerMap;
+
+    private SessionManagementService sessionManagementService;
+
+    public WebsocketHandler(@All List<GenericMessageHandler<? extends GenericMessage>> handlers, JsonWebToken principal,
+                            SessionManagementService sessionManagementService) {
+        handlerMap = new ConcurrentHashMap<>();
+        for (var genericMessageHandler : handlers) {
+            handlerMap.put(genericMessageHandler.handleMessageType(), genericMessageHandler);
+        }
+        this.principal = principal;
+        this.sessionManagementService = sessionManagementService;
+    }
 
     @OnOpen
     public void onOpen(Session session) throws IOException {
-        var username = userInfo.get("sub").toString();
-        sessions.put(username, session);
+        var username = principal.getName();
+        sessionManagementService.registerSession(username, session);
     }
 
     @OnClose
-    public void onClose(Session session, @PathParam("username") String username) {
-        sessions.remove(username);
-        broadcast("User " + username + " left");
+    public void onClose() {
+        var username = principal.getName();
+        sessionManagementService.removeSession(username);
     }
 
     @OnError
-    public void onError(Session session, @PathParam("username") String username, Throwable throwable) {
-        sessions.remove(username);
-        broadcast("User " + username + " left on error: " + throwable);
+    public void onError(Throwable throwable) {
+        var username = principal.getName();
+        sessionManagementService.removeSession(username);
     }
 
     @OnMessage
-    public void onMessage(String message, @PathParam("username") String username) {
-        if (message.equalsIgnoreCase("_ready_")) {
-            broadcast("User " + username + " joined");
-        } else {
-            broadcast(">> " + username + ": " + message);
-        }
-    }
-
-    private void broadcast(String message) {
-        sessions.values().forEach(s -> {
-            s.getAsyncRemote().sendObject(message, result ->  {
-                if (result.getException() != null) {
-                    System.out.println("Unable to send message: " + result.getException());
-                }
-            });
-        });
+    public void onMessage(GenericMessage message) {
+        var username = principal.getName();
+        GenericMessageHandler handler = handlerMap.get(message.getClass());
+        handler.handleMessage(username, message);
     }
 }
