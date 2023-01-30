@@ -2,9 +2,20 @@ package com.mtvu.websocketserver.handler;
 
 import com.mtvu.websocketserver.domain.GenericMessage;
 
-public interface GenericMessageHandler<T extends GenericMessage> {
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
-    Class<T> handleMessageType();
+public abstract class GenericMessageHandler<T extends GenericMessage> {
 
-    void handleMessage(String from, T message);
+    public static Map<String, GenericMessageHandler<? extends GenericMessage>> HANDLERS = new ConcurrentHashMap<>();
+
+    public GenericMessageHandler() {
+        HANDLERS.put(getChannel(), this);
+    }
+
+    public abstract Class<T> handleMessageType();
+
+    public abstract void handleMessage(String from, T message);
+
+    public abstract String getChannel();
 }

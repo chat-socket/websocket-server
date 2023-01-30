@@ -1,5 +1,15 @@
 package com.mtvu.websocketserver.domain;
 
-public interface GenericMessage {
-    String getChannel();
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@ToString
+@EqualsAndHashCode
+public abstract class GenericMessage {
+
+    private String channel;
 }

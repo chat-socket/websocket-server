@@ -1,6 +1,6 @@
 plugins {
-    id 'java'
-    id 'io.quarkus'
+    id "java"
+    id "io.quarkus"
 }
 
 repositories {
@@ -10,24 +10,24 @@ repositories {
 
 dependencies {
     implementation enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}")
-    compileOnly 'org.projectlombok:lombok:1.18.20'
-    annotationProcessor 'org.projectlombok:lombok:1.18.20'
+    compileOnly "org.projectlombok:lombok:1.18.20"
+    annotationProcessor "org.projectlombok:lombok:1.18.20"
 
-    implementation 'io.quarkus:quarkus-websockets'
-    implementation 'io.quarkus:quarkus-arc'
-    implementation("io.quarkus:quarkus-oidc")
-    implementation("io.quarkus:quarkus-reactive-routes")
-    implementation("io.quarkus:quarkus-smallrye-reactive-messaging-kafka")
+    implementation "io.quarkus:quarkus-websockets"
+    implementation "io.quarkus:quarkus-arc"
+    implementation "io.quarkus:quarkus-oidc"
+    implementation "io.quarkus:quarkus-reactive-routes"
+    implementation "io.quarkus:quarkus-smallrye-reactive-messaging-kafka"
 
-    testImplementation("io.smallrye.reactive:smallrye-reactive-messaging-in-memory")
-    testImplementation 'org.awaitility:awaitility:4.2.0'
-    testImplementation("io.quarkus:quarkus-test-oidc-server")
-    testImplementation("io.rest-assured:rest-assured")
-    testImplementation("io.quarkus:quarkus-junit5")
+    testImplementation "io.smallrye.reactive:smallrye-reactive-messaging-in-memory"
+    testImplementation "org.awaitility:awaitility:4.2.0"
+    testImplementation "io.quarkus:quarkus-test-oidc-server"
+    testImplementation "io.rest-assured:rest-assured"
+    testImplementation "io.quarkus:quarkus-junit5"
 }
 
-group 'com.mtvu'
-version '1.0.0-SNAPSHOT'
+group "com.mtvu"
+version "1.0.0-SNAPSHOT"
 
 java {
     sourceCompatibility = JavaVersion.VERSION_17
@@ -38,10 +38,10 @@ test {
     systemProperty "java.util.logging.manager", "org.jboss.logmanager.LogManager"
 }
 compileJava {
-    options.encoding = 'UTF-8'
-    options.compilerArgs << '-parameters'
+    options.encoding = "UTF-8"
+    options.compilerArgs << "-parameters"
 }
 
 compileTestJava {
-    options.encoding = 'UTF-8'
+    options.encoding = "UTF-8"
 }

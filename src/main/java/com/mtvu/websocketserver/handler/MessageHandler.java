@@ -8,13 +8,14 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
 @ApplicationScoped
-public class MessageHandler implements GenericMessageHandler<ChatMessage> {
+public class MessageHandler extends GenericMessageHandler<ChatMessage> {
 
     @Inject
     @Channel("messaging-topic-out")
     Emitter<ChatMessage> messageEmitter;
 
     public MessageHandler() {
+        super();
     }
 
     @Override
@@ -26,5 +27,10 @@ public class MessageHandler implements GenericMessageHandler<ChatMessage> {
     public void handleMessage(String from, ChatMessage message) {
         message.setSender(from);
         messageEmitter.send(message);
+    }
+
+    @Override
+    public String getChannel() {
+        return "message";
     }
 }

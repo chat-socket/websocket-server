@@ -2,12 +2,13 @@ package com.mtvu.websocketserver.jackson;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.mtvu.websocketserver.domain.GenericMessage;
 
-import javax.websocket.*;
+import javax.websocket.EncodeException;
+import javax.websocket.Encoder;
+import javax.websocket.EndpointConfig;
 
 public class GenericMessageEncoder implements Encoder.Text<GenericMessage>  {
 

@@ -12,6 +12,7 @@ import com.mtvu.websocketserver.domain.message.RecordingMessageContent;
 import com.mtvu.websocketserver.domain.message.TextMessageContent;
 
 import java.io.IOException;
+import java.util.InvalidPropertiesFormatException;
 
 public class MessageContentDeserializer extends StdDeserializer<MessageContent> {
 
@@ -24,7 +25,7 @@ public class MessageContentDeserializer extends StdDeserializer<MessageContent> 
     }
 
     @Override
-    public MessageContent deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JacksonException {
+    public MessageContent deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
         ObjectCodec codec = p.getCodec();
         JsonNode node = codec.readTree(p);
         MessageContentType contentType = MessageContentType.get(node.get("type").textValue());
@@ -33,6 +34,6 @@ public class MessageContentDeserializer extends StdDeserializer<MessageContent> 
         } else if (contentType == MessageContentType.RECORDING) {
             return codec.treeToValue(node, RecordingMessageContent.class);
         }
-        throw new RuntimeException("Unable to decode message " + p.getValueAsString());
+        throw new InvalidPropertiesFormatException("Unable to decode message " + p.getValueAsString());
     }
 }

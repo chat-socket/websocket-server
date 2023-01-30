@@ -44,7 +44,6 @@ public class WebsocketHandlerTest {
     @Any
     InMemoryConnector connector;
 
-
     @Test
     public void testWebsocketChat() throws Exception {
         var configBuilder = ClientEndpointConfig.Builder.create();
@@ -67,15 +66,16 @@ public class WebsocketHandlerTest {
                     .receiver("bob")
                     .content(new TextMessageContent("Bla"))
                     .build();
+            message.setChannel("message");
 
             session.getBasicRemote().sendObject(message);
 
             InMemorySink<ChatMessage> messagingTopicOut = connector.sink("messaging-topic-out");
 
             await().<List<? extends Message<ChatMessage>>>until(messagingTopicOut::received, t -> t.size() == 1);
-            ChatMessage queuedBeverage = messagingTopicOut.received().get(0).getPayload();
-            Assertions.assertNotNull(queuedBeverage);
-            Assertions.assertEquals(username, queuedBeverage.getSender());
+            ChatMessage messageReceived = messagingTopicOut.received().get(0).getPayload();
+            Assertions.assertNotNull(messageReceived);
+            Assertions.assertEquals(username, messageReceived.getSender());
         }
     }
 
