@@ -12,4 +12,6 @@ import lombok.ToString;
 public abstract class GenericMessage {
 
     private String channel;
+
+    private MessageAction messageAction;
 }

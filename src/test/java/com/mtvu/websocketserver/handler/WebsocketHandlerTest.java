@@ -1,6 +1,7 @@
 package com.mtvu.websocketserver.handler;
 
 import com.mtvu.websocketserver.domain.GenericMessage;
+import com.mtvu.websocketserver.domain.MessageAction;
 import com.mtvu.websocketserver.domain.message.ChatMessage;
 import com.mtvu.websocketserver.domain.message.MessageType;
 import com.mtvu.websocketserver.domain.message.TextMessageContent;
@@ -67,6 +68,7 @@ public class WebsocketHandlerTest {
                     .content(new TextMessageContent("Bla"))
                     .build();
             message.setChannel("message");
+            message.setMessageAction(MessageAction.CREATE);
 
             session.getBasicRemote().sendObject(message);
 

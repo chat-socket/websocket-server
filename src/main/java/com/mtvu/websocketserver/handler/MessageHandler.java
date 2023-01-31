@@ -24,9 +24,14 @@ public class MessageHandler extends GenericMessageHandler<ChatMessage> {
     }
 
     @Override
-    public void handleMessage(String from, ChatMessage message) {
+    public void create(String from, ChatMessage message) {
         message.setSender(from);
         messageEmitter.send(message);
+    }
+
+    @Override
+    public void update(String from, ChatMessage message) {
+
     }
 
     @Override

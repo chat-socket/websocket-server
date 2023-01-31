@@ -17,7 +17,12 @@ public class ConversationHandler extends GenericMessageHandler<Conversation> {
     }
 
     @Override
-    public void handleMessage(String from, Conversation message) {
+    public void create(String from, Conversation message) {
+
+    }
+
+    @Override
+    public void update(String from, Conversation message) {
 
     }
 

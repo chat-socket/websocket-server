@@ -15,7 +15,16 @@ public abstract class GenericMessageHandler<T extends GenericMessage> {
 
     public abstract Class<T> handleMessageType();
 
-    public abstract void handleMessage(String from, T message);
+    protected final void handleMessage(String from, T message) {
+        switch (message.getMessageAction()) {
+            case CREATE -> create(from, message);
+            case UPDATE -> update(from, message);
+        }
+    }
+
+    public abstract void create(String from, T message);
+
+    public abstract void update(String from, T message);
 
     public abstract String getChannel();
 }
