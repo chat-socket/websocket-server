@@ -8,12 +8,14 @@ import lombok.*;
 import java.time.OffsetDateTime;
 import java.util.List;
 
-@Data
-@EqualsAndHashCode(callSuper = true)
 @Builder(toBuilder = true)
 @AllArgsConstructor
+@Getter
+@Setter
+@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 public class ChatMessage extends GenericMessage {
+    private Integer id;
     private MessageType messageType;
     @JsonDeserialize(using = MessageContentDeserializer.class)
     private MessageContent content;
@@ -22,5 +24,4 @@ public class ChatMessage extends GenericMessage {
     private Integer replyTo;
     private String receiver;
     private List<Attachment> attachments;
-
 }
