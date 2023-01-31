@@ -14,6 +14,7 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -45,20 +46,19 @@ public class WebsocketHandler {
 
     @OnOpen
     public void onOpen(Session session) throws IOException {
-        var username = principal.getName();
-        sessionManagementService.registerSession(username, session);
+        sessionManagementService.registerSession(principal.getName(), principal.getExpirationTime(), session);
     }
 
     @OnClose
     public void onClose() {
         var username = principal.getName();
-        sessionManagementService.removeSession(username);
+        sessionManagementService.deactivateSession(username);
     }
 
     @OnError
     public void onError(Throwable throwable) {
         var username = principal.getName();
-        sessionManagementService.removeSession(username);
+        sessionManagementService.deactivateSession(username);
     }
 
     @OnMessage
@@ -67,4 +67,15 @@ public class WebsocketHandler {
         GenericMessageHandler handler = handlerMap.get(message.getClass());
         handler.handleMessage(username, message);
     }
+
+    @OnMessage
+    public void onPongMessage(PongMessage message) {
+        var username = principal.getName();
+        var pongMessage = StandardCharsets.UTF_8.decode(message.getApplicationData()).toString();
+        var session = sessionManagementService.getSession(username);
+        if (session.getPingMessage().equals(pongMessage)) {
+            session.setAlive(true);
+        }
+    }
+
 }
