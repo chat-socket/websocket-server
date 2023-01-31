@@ -13,11 +13,12 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.oidc.server.OidcWiremockTestResource;
 import io.smallrye.reactive.messaging.providers.connectors.InMemoryConnector;
 import io.smallrye.reactive.messaging.providers.connectors.InMemorySink;
+import io.smallrye.reactive.messaging.providers.connectors.InMemorySource;
+import io.smallrye.reactive.messaging.kafka.Record;
+
 import org.eclipse.microprofile.reactive.messaging.Message;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import static org.awaitility.Awaitility.await;
-
 
 import javax.enterprise.inject.Any;
 import javax.inject.Inject;
@@ -29,6 +30,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.TimeUnit;
+
+import static org.awaitility.Awaitility.await;
 
 
 @QuarkusTest
@@ -78,6 +81,12 @@ public class WebsocketHandlerTest {
             ChatMessage messageReceived = messagingTopicOut.received().get(0).getPayload();
             Assertions.assertNotNull(messageReceived);
             Assertions.assertEquals(username, messageReceived.getSender());
+
+            InMemorySource<Record<String, String>> messagingTopicIn = connector.source("messaging-topic-in");
+            String notification = "{\"from\":\"alice\"}";
+            messagingTopicIn.send(Record.of(username, notification));
+
+            Assertions.assertEquals(notification, MESSAGES.poll(10, TimeUnit.SECONDS));
         }
     }
 
@@ -86,6 +95,7 @@ public class WebsocketHandlerTest {
         @Override
         public void onOpen(Session session, EndpointConfig config) {
             MESSAGES.add("READY");
+            session.addMessageHandler(String.class, MESSAGES::add);
         }
     }
 }
