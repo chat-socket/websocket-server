@@ -1,6 +1,7 @@
-package com.mtvu.websocketserver.handler;
+package com.mtvu.websocketserver.handler.chat;
 
 import com.mtvu.websocketserver.domain.conversation.Conversation;
+import com.mtvu.websocketserver.handler.GenericMessageHandler;
 
 import javax.enterprise.context.ApplicationScoped;
 

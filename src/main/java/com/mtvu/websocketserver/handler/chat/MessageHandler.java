@@ -1,6 +1,7 @@
-package com.mtvu.websocketserver.handler;
+package com.mtvu.websocketserver.handler.chat;
 
 import com.mtvu.websocketserver.domain.message.ChatMessage;
+import com.mtvu.websocketserver.handler.GenericMessageHandler;
 import org.eclipse.microprofile.reactive.messaging.Channel;
 import org.eclipse.microprofile.reactive.messaging.Emitter;
 
