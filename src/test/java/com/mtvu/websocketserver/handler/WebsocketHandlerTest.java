@@ -23,6 +23,7 @@ import org.junit.jupiter.api.Test;
 import javax.enterprise.inject.Any;
 import javax.inject.Inject;
 import javax.websocket.*;
+import java.io.IOException;
 import java.net.URI;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
@@ -49,17 +50,47 @@ public class WebsocketHandlerTest {
     InMemoryConnector connector;
 
     @Test
-    public void testWebsocketChat() throws Exception {
-        var configBuilder = ClientEndpointConfig.Builder.create();
+    public void whenNoValidAccessTokenThenRejectTheConnectionRequest() {
+        Assertions.assertThrows(IOException.class, () -> {
+            try (Session ignored = openConnection("invalid-access-token")) {
+                Assertions.fail("Invalid access token should be rejected");
+            }
+        });
+    }
+
+    @Test
+    public void whenHasValidAccessTokenThenEstablishTheConnection() throws Exception {
         var username = "alice";
-        List<String> subProtocols = new ArrayList<>();
-        subProtocols.add("access_token");
-        subProtocols.add(OidcWiremockTestResource.getAccessToken(username, Set.of("user")));
-        configBuilder.preferredSubprotocols(subProtocols);
-        configBuilder.encoders(List.of(GenericMessageEncoder.class));
-        ClientEndpointConfig clientConfig = configBuilder.build();
-        var container = ContainerProvider.getWebSocketContainer();
-        try (Session session = container.connectToServer(Client.class, clientConfig, uri)) {
+        var accessToken = OidcWiremockTestResource.getAccessToken(username, Set.of("user"));
+
+        try (Session ignored = openConnection(accessToken)) {
+            Assertions.assertEquals("READY", MESSAGES.poll(10, TimeUnit.SECONDS));
+        }
+    }
+
+    @Test
+    public void whenUserReceiveAMessageFromKafkaThenDeliverItToUser() throws Exception {
+        var username = "alice";
+        var accessToken = OidcWiremockTestResource.getAccessToken(username, Set.of("user"));
+
+        try (Session ignored = openConnection(accessToken)) {
+            Assertions.assertEquals("READY", MESSAGES.poll(10, TimeUnit.SECONDS));
+
+            InMemorySource<Record<String, String>> messagingTopicIn = connector.source("messaging-topic-in");
+            String notification = "{\"from\":\"alice\"}";
+            messagingTopicIn.send(Record.of(username, notification));
+
+            Assertions.assertEquals(notification, MESSAGES.poll(10, TimeUnit.SECONDS));
+        }
+    }
+
+
+    @Test
+    public void whenUserSendAMessageThenPublishToKafkaTopic() throws Exception {
+        var username = "alice";
+        var accessToken = OidcWiremockTestResource.getAccessToken(username, Set.of("user"));
+
+        try (Session session = openConnection(accessToken)) {
             Assertions.assertEquals("READY", MESSAGES.poll(10, TimeUnit.SECONDS));
             GenericMessage message = ChatMessage.builder()
                     .messageType(MessageType.COUPLE)
@@ -81,13 +112,19 @@ public class WebsocketHandlerTest {
             ChatMessage messageReceived = messagingTopicOut.received().get(0).getPayload();
             Assertions.assertNotNull(messageReceived);
             Assertions.assertEquals(username, messageReceived.getSender());
-
-            InMemorySource<Record<String, String>> messagingTopicIn = connector.source("messaging-topic-in");
-            String notification = "{\"from\":\"alice\"}";
-            messagingTopicIn.send(Record.of(username, notification));
-
-            Assertions.assertEquals(notification, MESSAGES.poll(10, TimeUnit.SECONDS));
         }
+    }
+
+    private Session openConnection(String accessToken) throws DeploymentException, IOException {
+        var configBuilder = ClientEndpointConfig.Builder.create();
+        List<String> subProtocols = new ArrayList<>();
+        subProtocols.add("access_token");
+        subProtocols.add(accessToken);
+        configBuilder.preferredSubprotocols(subProtocols);
+        configBuilder.encoders(List.of(GenericMessageEncoder.class));
+        ClientEndpointConfig clientConfig = configBuilder.build();
+        var container = ContainerProvider.getWebSocketContainer();
+        return container.connectToServer(Client.class, clientConfig, uri);
     }
 
     public static class Client extends Endpoint {
