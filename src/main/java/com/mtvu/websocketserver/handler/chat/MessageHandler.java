@@ -2,6 +2,7 @@ package com.mtvu.websocketserver.handler.chat;
 
 import com.mtvu.websocketserver.domain.message.ChatMessage;
 import com.mtvu.websocketserver.handler.GenericMessageHandler;
+import io.smallrye.reactive.messaging.kafka.Record;
 import org.eclipse.microprofile.reactive.messaging.Channel;
 import org.eclipse.microprofile.reactive.messaging.Emitter;
 
@@ -13,7 +14,7 @@ public class MessageHandler extends GenericMessageHandler<ChatMessage> {
 
     @Inject
     @Channel("messaging-topic-out")
-    Emitter<ChatMessage> messageEmitter;
+    Emitter<Record<String, ChatMessage>> messageEmitter;
 
     public MessageHandler() {
         super();
@@ -26,8 +27,7 @@ public class MessageHandler extends GenericMessageHandler<ChatMessage> {
 
     @Override
     public void create(String from, ChatMessage message) {
-        message.setSender(from);
-        messageEmitter.send(message);
+        messageEmitter.send(Record.of(from, message));
     }
 
     @Override

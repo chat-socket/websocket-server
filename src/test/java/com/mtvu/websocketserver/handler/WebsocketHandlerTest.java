@@ -106,12 +106,13 @@ public class WebsocketHandlerTest {
 
             session.getBasicRemote().sendObject(message);
 
-            InMemorySink<ChatMessage> messagingTopicOut = connector.sink("messaging-topic-out");
+            InMemorySink<Record<String, ChatMessage>> sink = connector.sink("messaging-topic-out");
 
-            await().<List<? extends Message<ChatMessage>>>until(messagingTopicOut::received, t -> t.size() == 1);
-            ChatMessage messageReceived = messagingTopicOut.received().get(0).getPayload();
+            await().<List<? extends Message<Record<String, ChatMessage>>>>until(sink::received, t -> t.size() == 1);
+            var messageReceived = sink.received().get(0).getPayload();
             Assertions.assertNotNull(messageReceived);
-            Assertions.assertEquals(username, messageReceived.getSender());
+            Assertions.assertEquals(username, messageReceived.key());
+            Assertions.assertEquals(MessageType.COUPLE, messageReceived.value().getMessageType());
         }
     }
 
