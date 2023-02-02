@@ -27,6 +27,7 @@ public class MessageHandler extends GenericMessageHandler<ChatMessage> {
 
     @Override
     public void create(String from, ChatMessage message) {
+        message.setSender(from);    // Prevent the user from changing this field on purpose.
         messageEmitter.send(Record.of(from, message));
     }
 
