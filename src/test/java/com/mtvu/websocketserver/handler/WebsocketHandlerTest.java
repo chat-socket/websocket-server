@@ -5,7 +5,7 @@ import com.mtvu.websocketserver.domain.MessageAction;
 import com.mtvu.websocketserver.domain.message.ChatMessage;
 import com.mtvu.websocketserver.domain.message.MessageType;
 import com.mtvu.websocketserver.domain.message.TextMessageContent;
-import com.mtvu.websocketserver.handler.config.KafkaTestResourceLifecycleManager;
+import com.mtvu.websocketserver.config.KafkaTestResourceLifecycleManager;
 import com.mtvu.websocketserver.jackson.GenericMessageEncoder;
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.common.http.TestHTTPResource;
@@ -98,7 +98,7 @@ public class WebsocketHandlerTest {
                     .date(OffsetDateTime.now())
                     .replyTo(null)
                     .sender(username)
-                    .receiver("bob")
+                    .groupId("direct:abc")
                     .content(new TextMessageContent("Bla"))
                     .build();
             message.setChannel("message");

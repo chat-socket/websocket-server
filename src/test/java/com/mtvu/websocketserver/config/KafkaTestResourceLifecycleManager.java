@@ -1,4 +1,4 @@
-package com.mtvu.websocketserver.handler.config;
+package com.mtvu.websocketserver.config;
 
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import io.smallrye.reactive.messaging.providers.connectors.InMemoryConnector;
