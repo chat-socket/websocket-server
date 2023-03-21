@@ -23,6 +23,10 @@ public class CustomTenantResolver implements TenantResolver {
     public String resolve(RoutingContext context) {
         var accessToken = context.request().getHeader("Authorization");
         var token = OidcUtils.decodeJwtContent(accessToken);
+        if (token == null) {
+            // In case token is null, fall back to default tenant identifier
+            return null;
+        }
         var tokenIss = token.getString("iss");
         if (Objects.equals(tokenIss, externalIssuerUri)) {
             // If the current iss is the one that we have declared in our configuration file
