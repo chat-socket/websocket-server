@@ -33,11 +33,13 @@ public class CustomTenantResolver implements TenantResolver {
             return null;
         }
         var token = OidcUtils.decodeJwtContent(accessToken);
-        var tokenIss = token.getString("iss");
-        if (Objects.equals(tokenIss, externalIssuerUri)) {
-            // If the current iss is the one that we have declared in our configuration file
-            // Then return the public tenant identifier
-            return "public-client";
+        if (token != null) {
+            var tokenIss = token.getString("iss");
+            if (Objects.equals(tokenIss, externalIssuerUri)) {
+                // If the current iss is the one that we have declared in our configuration file
+                // Then return the public tenant identifier
+                return "public-client";
+            }
         }
 
         // Otherwise, return the default identifier
