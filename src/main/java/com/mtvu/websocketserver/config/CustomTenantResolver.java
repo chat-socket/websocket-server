@@ -21,6 +21,12 @@ public class CustomTenantResolver implements TenantResolver {
 
     @Override
     public String resolve(RoutingContext context) {
+        String tenantId = context.get("tenant-id");
+        if (tenantId != null) {
+            // When the tenant-id attribute exists in the RoutingContext, this means that
+            // The tenant-id has been resolved and we don't need to do it again
+            return tenantId;
+        }
         var accessToken = context.request().getHeader("Authorization");
         var token = OidcUtils.decodeJwtContent(accessToken);
         if (token == null) {
