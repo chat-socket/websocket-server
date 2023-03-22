@@ -24,15 +24,15 @@ public class CustomTenantResolver implements TenantResolver {
         String tenantId = context.get("tenant-id");
         if (tenantId != null) {
             // When the tenant-id attribute exists in the RoutingContext, this means that
-            // The tenant-id has been resolved and we don't need to do it again
+            // The tenant-id has been resolved, so we don't need to do it again
             return tenantId;
         }
         var accessToken = context.request().getHeader("Authorization");
-        var token = OidcUtils.decodeJwtContent(accessToken);
-        if (token == null) {
-            // In case token is null, fall back to default tenant identifier
+        if (accessToken == null) {
+            // In case of no accessToken available, fall back to default tenant identifier
             return null;
         }
+        var token = OidcUtils.decodeJwtContent(accessToken);
         var tokenIss = token.getString("iss");
         if (Objects.equals(tokenIss, externalIssuerUri)) {
             // If the current iss is the one that we have declared in our configuration file
