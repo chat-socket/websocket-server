@@ -17,7 +17,6 @@ public class GenericMessageEncoder implements Encoder.Text<GenericMessage>  {
     static {
         final SimpleModule module = new SimpleModule();
         MAPPER = new ObjectMapper();
-        module.addDeserializer(GenericMessage.class, new GenericMessageDeserializer());
         MAPPER.registerModule(new JavaTimeModule());
         MAPPER.registerModule(module);
     }

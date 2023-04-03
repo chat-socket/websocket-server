@@ -25,7 +25,7 @@ public class GenericMessageDeserializer extends StdDeserializer<GenericMessage> 
     public GenericMessage deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
         ObjectCodec mapper = p.getCodec();
         JsonNode node = mapper.readTree(p);
-        String channel = node.get("channel").textValue();
+        String channel = node.get("c").textValue();
         for (var kv : GenericMessageHandler.HANDLERS.entrySet()) {
             if (Objects.equals(channel, kv.getKey())) {
                 return mapper.treeToValue(node, kv.getValue().handleMessageType());
